@@ -56,12 +56,8 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 .head span{font:9px 'DM Mono';color:var(--muted)}
 
 .chick-title{display:flex;align-items:center;gap:16px}
-.chick{
-  width:54px;height:54px;display:block;overflow:visible;
-}
-.chick img{
-  width:100%;height:100%;object-fit:contain;display:block;
-}
+.chick{width:54px;height:54px;display:block;overflow:visible}
+.chick img{width:100%;height:100%;object-fit:contain;display:block}
 
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .card{
@@ -95,9 +91,12 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 .dark{max-width:none;background:var(--night);color:#eee8e4;padding-left:12vw;padding-right:12vw}
 .dark .head{border-color:#4b444d}
 .dark .head span{color:#aaa1aa}
-.poem{max-width:720px;text-align:center;margin:45px auto}
-.poem h3{font:400 43px 'Cormorant Garamond'}
-.poem p{font-size:20px;line-height:2;font-style:italic;color:#d8d0d0}
+.poem-list{display:flex;flex-direction:column;gap:50px;margin-top:30px}
+.poem{max-width:720px;text-align:center;margin:0 auto;border-bottom:1px solid #38313c;padding-bottom:40px}
+.poem:last-child{border-bottom:0}
+.poem .code{color:#aaa1aa;margin-bottom:10px;display:block}
+.poem h3{font:400 38px 'Cormorant Garamond';margin:10px 0 16px}
+.poem p{font-size:19px;line-height:2;font-style:italic;color:#d8d0d0;white-space:pre-line}
 
 .feeling{max-width:850px}
 .intro{text-align:center;margin-bottom:40px}
@@ -118,7 +117,6 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 }
 .status{min-height:18px;margin-top:12px;font:12px 'Playfair Display';font-style:italic;color:var(--muted)}
 
-/* Secret Room & Public Anonymous Wall */
 .secret{max-width:none;background:#e8e0e5}
 .secret-inner{max-width:850px;margin:auto;text-align:center}
 .secret h2{font:500 53px 'Cormorant Garamond';margin:0}
@@ -140,20 +138,27 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 footer{text-align:center;padding:80px 20px 105px;font:9px 'DM Mono';letter-spacing:.1em;color:var(--muted)}
 footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bottom:10px}
 
-/* Reader popup */
+/* Sticky Reader Popup with Always-Visible Close Button */
 .reader{
   display:none;position:fixed;inset:0;z-index:100;
-  background:rgba(33,29,38,.96);overflow:auto;padding:70px 6vw;
+  background:rgba(33,29,38,.96);overflow-y:auto;padding:100px 6vw 70px;
 }
 .reader.opened{display:block}
 .reader-inner{max-width:820px;margin:auto;color:#eee8e4}
-.reader-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:50px}
-.reader-code{font:9px 'DM Mono';letter-spacing:.15em;color:#aaa1aa}
-.close{
-  color:#eee8e4;background:none;border:0;font:9px 'DM Mono';letter-spacing:.12em;
-  cursor:pointer;border-bottom:1px solid #aaa1aa;padding-bottom:5px;
+.reader-bar{
+  position:fixed;top:0;left:0;right:0;z-index:120;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 6vw;background:rgba(33,29,38,.9);backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
-.reader-part{padding:45px 0;border-bottom:1px solid #4b444d}
+.reader-code{font:9px 'DM Mono';letter-spacing:.15em;color:#aaa1aa}
+.close-btn{
+  color:#eee8e4;background:none;border:1px solid rgba(255,255,255,.3);
+  padding:6px 14px;font:9px 'DM Mono';letter-spacing:.14em;cursor:pointer;
+  transition:.2s;border-radius:2px;
+}
+.close-btn:hover{background:#eee8e4;color:var(--night)}
+.reader-part{padding:20px 0 45px;border-bottom:1px solid #4b444d}
 .part-label{font:9px 'DM Mono';letter-spacing:.18em;color:#aaa1aa;margin-bottom:18px}
 .reader-part h3{font:500 43px 'Cormorant Garamond';margin:0 0 12px}
 .reader-part h4{font:italic 400 20px 'Playfair Display';margin:0 0 28px;color:#d8d0d0}
@@ -171,7 +176,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   .dark{padding-left:7vw;padding-right:7vw}
   .head{gap:15px}.head span{display:none}
   .chick{width:48px;height:48px}
-  .reader{padding:50px 7vw}
+  .reader{padding:90px 7vw 50px}
   .reader-part h3{font-size:37px}
   .reader-part p{font-size:17px}
 }
@@ -200,6 +205,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   <div class="risk">if you stay, read gently.</div>
 </section>
 
+<!-- SECTION 1: CHICKS -->
 <section id="chicks">
   <div class="head">
     <div class="chick-title">
@@ -209,59 +215,28 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
     <span>pieces from somewhere between then & now</span>
   </div>
 
-  <div class="grid">
-    <article class="card">
-      <div class="code">FSJAD-K-0307 · ENTRY / 01</div>
-      <h3>Curse to Ruin things</h3>
-      <p>Today, a conversation turned into an argument. And somehow, somewhere between the words we threw at each other, I watched you cry because of me...</p>
-      <a class="read" onclick="openEntry01()">read entry →</a>
-    </article>
-
-    <article class="card empty-card">
-      <div class="entry-mark">ENTRY / 02</div>
-      <div class="coming">not written yet.</div>
-      <div class="tiny">reserved for a future release</div>
-    </article>
-    <article class="card empty-card">
-      <div class="entry-mark">ENTRY / 03</div>
-      <div class="coming">still folded away.</div>
-      <div class="tiny">reserved for a future release</div>
-    </article>
-    <article class="card empty-card">
-      <div class="entry-mark">ENTRY / 04</div>
-      <div class="coming">leave this one unopened.</div>
-      <div class="tiny">reserved for a future release</div>
-    </article>
+  <div class="grid" id="chicksContainer">
+    <!-- Rendered dynamically from CONTENT_ARCHIVE.chicks -->
   </div>
 </section>
 
+<!-- SECTION 2: WHISPERS -->
 <section id="whispers" class="voice">
   <div class="head"><h2>whispers of arrogance.</h2><span>unfiltered / transcribed</span></div>
-  <div class="voice-grid">
-    <article class="voice-card">
-      <div class="code">3020 / V-04</div>
-      <div class="wave"><i style="--h:8px"></i><i style="--h:18px"></i><i style="--h:27px"></i><i style="--h:12px"></i><i style="--h:29px"></i><i style="--h:20px"></i><i style="--h:9px"></i><i style="--h:23px"></i><i style="--h:31px"></i><i style="--h:15px"></i><i style="--h:25px"></i><i style="--h:11px"></i></div>
-      <h3>your words will live here.</h3>
-      <p>Voice-note transcriptions, unfinished thoughts, things said too honestly — whenever you're ready to send them.</p>
-    </article>
-    <article class="voice-card">
-      <div class="code">3020 / V-11</div>
-      <div class="wave"><i style="--h:18px"></i><i style="--h:10px"></i><i style="--h:25px"></i><i style="--h:31px"></i><i style="--h:14px"></i><i style="--h:22px"></i><i style="--h:8px"></i><i style="--h:28px"></i><i style="--h:17px"></i><i style="--h:30px"></i><i style="--h:12px"></i><i style="--h:21px"></i></div>
-      <h3>another voice, another night.</h3>
-      <p>This is only a shell for now. The real words will replace it when you send them.</p>
-    </article>
+  <div class="voice-grid" id="whispersContainer">
+    <!-- Rendered dynamically from CONTENT_ARCHIVE.whispers -->
   </div>
 </section>
 
+<!-- SECTION 3: GLIMPSES OF ELSEWHERE -->
 <section id="glimpses" class="dark">
   <div class="head"><h2>glimpses of elsewhere.</h2><span>strange / beautiful / unnecessary</span></div>
-  <div class="poem">
-    <h3>this room is still waiting.</h3>
-    <p>Some things will arrive here without announcement.<br><br>A line. A page. A thought that stayed too long.<br><br>Nothing needs to be finished before it belongs.</p>
+  <div class="poem-list" id="glimpsesContainer">
+    <!-- Rendered dynamically from CONTENT_ARCHIVE.glimpses -->
   </div>
 </section>
 
-<!-- CONNECTED FORMSPREE FEEDBACK SECTION -->
+<!-- SECTION 4: FEEDBACK -->
 <section id="feeling" class="feeling">
   <div class="intro">
     <h2>before you leave.</h2>
@@ -278,7 +253,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   </form>
 </section>
 
-<!-- ANONYMOUS PUBLIC COMMENT WALL -->
+<!-- SECTION 5: SECRET ROOM -->
 <section id="secret" class="secret">
   <div class="secret-inner">
     <div style="font-size:22px">⌁</div>
@@ -311,19 +286,30 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   an archive, not a timeline.
 </footer>
 
+<!-- Persistent Reader Popup with Sticky Top Bar -->
 <div class="reader" id="reader">
+  <div class="reader-bar">
+    <div class="reader-code" id="readerCode">DESIRE / 3020</div>
+    <button class="close-btn" onclick="closeReader()">✕ CLOSE</button>
+  </div>
   <div class="reader-inner">
-    <div class="reader-top">
-      <div class="reader-code" id="readerCode"></div>
-      <button class="close" onclick="closeReader()">CLOSE ×</button>
-    </div>
     <div id="readerContent"></div>
   </div>
 </div>
 
 <script>
-// --- Multi-part Reader ---
-const entry01FullText = `Today, a conversation turned into an argument.
+/* ======================================================================
+   POSTING ARCHIVE: ENTRIES LIVE HERE
+   ====================================================================== */
+const CONTENT_ARCHIVE = {
+  // 1. CHICKS ENTRIES
+  chicks: [
+    {
+      code: "FSJAD-K-0307 · ENTRY / 01",
+      title: "Curse to Ruin things",
+      preview: "Today, a conversation turned into an argument. And somehow, somewhere between the words we threw at each other, I watched you cry because of me...",
+      subheading: "Today, a conversation turned into an argument.",
+      fullText: `Today, a conversation turned into an argument.
 
 And somehow, somewhere between the words we threw at each other, I watched you cry because of me.
 I heard it through the phone.
@@ -639,17 +625,407 @@ then from your nights,
 and finally from the little places inside you where you had quietly made a home for them.
 And perhaps the most heartbreaking thing is realizing that while they were leaving…
 
-you were still making room for them to stay.`;
+you were still making room for them to stay.`,
+      quote: "Perhaps the most heartbreaking thing is realizing that while they were leaving… you were still making room for them to stay."
+    },
+    {
+      code: "FHBTM-K-0908 · ENTRY / 02",
+      title: "Different Skies",
+      preview: "I cried today. Not the kind of crying where you wipe your eyes, take a breath, and move on. I mean I really cried...",
+      subheading: "Everyone has their own eyes. Everyone has their own moon.",
+      fullText: `I cried today.
+Not the kind of crying where you wipe your eyes, take a breath, and move on.
 
-function openEntry01(){
-  document.getElementById('readerCode').textContent = "DESIRE / 3020 · FSJAD-K-0307";
+I mean I really cried.
+
+And honestly, I don’t remember the last time I cried like this.
+I was sitting there, going through our old chats.
+I don’t even know why I opened them.
+Maybe I was looking for something.
+Maybe I was just missing you and didn’t want to admit it.
+But then I started reading…
+And there we were.
+
+Us.
+
+The stupid conversations.
+The random things we’d say for no reason.
+The little moments I had completely forgotten about.
+The way we used to talk.
+The way you used to make an ordinary day feel like it had something in it.
+And suddenly I wasn’t reading old messages anymore.
+
+I was reliving them.
+
+And that’s when it hit me.
+Hard.
+I put my phone down and just…
+
+cried.
+
+And the weirdest part?
+I wasn’t only crying because I’m scared of losing you.
+I think I was crying because I finally understood something about myself.
+
+I’m actually in love with you.
+
+Like…
+
+really, really in love with you.
+More than I’ve ever been able to say.
+More than I’ve ever admitted to myself.
+And maybe I’ve known it for a long time.
+I just didn’t want to put a name to it because once you name something, you have to accept how much it can hurt.
+But today I couldn’t hide from it anymore.
+
+I love you 3000
+
+I don’t know how else to say it.
+I’ve tried putting it into words before, but everything sounds so small compared to what I actually feel.
+Because how do I explain that you became the person I wanted to tell everything to?
+Something happened in my day—
+I wanted to tell you.
+I saw something funny—
+I wanted to send it to you.
+Something hurt—
+I wanted you.
+Something made me happy—
+you were the person I wanted to share it with.
+Somewhere along the way, without even realizing it,
+
+you became part of my life.
+Not just someone I talked to.
+Part of it.
+And maybe that’s why this feels like I’m losing more than a person.
+
+It feels like I’m losing all those tiny moments I had quietly started imagining with you.
+And there’s one thing I keep coming back to tonight:
+
+“I’ll hold you in my heart 🩷 until I can hold you in my arms. 🫂”
+
+I don’t know why that sentence feels so different now.
+Maybe because when I said it, I didn’t know how true it would become.
+Maybe I really will have to hold you in my heart.
+
+Because I don’t know if I’ll ever get to hold you in my arms.
+And Chick please…
+that hurts.
+
+---
+
+I think there’s also a little kid inside me who cried today.
+The kid who has spent so much time pretending he doesn’t need anyone.
+The kid who learned to hold his own tears.
+To deal with things quietly.
+To say “I’m fine” even when he wasn’t.
+The kid who didn’t want much.
+He just wanted to be chosen.
+He wanted someone to stay.
+
+Someone who wouldn’t make him question whether he was worth staying for.
+And when you came into my life…
+I think that kid finally let himself believe:
+
+“Maybe this time.”
+
+Maybe this time someone will stay.
+Maybe this time I can give someone my whole heart and not be scared of what happens to it.
+Maybe this time I don’t have to be alone with everything.
+And perhaps that’s why today’s tears felt so different.
+It wasn’t just me crying.
+
+It felt like that little kid finally got tired of being strong.
+
+---
+
+I know what happened between us wasn’t only my fault.
+We both made mistakes.
+We both said things we shouldn’t have.
+Things happened between us that shouldn’t have happened.
+Some knowingly.
+Some without meaning to.
+And I wish I could undo some of them.
+But I can’t.
+And I can’t undo what you felt either.
+I can’t tell you that you shouldn’t feel hurt.
+I can’t tell you that you should stay just because I love you.
+Because it’s your life.
+
+Your heart.
+Your choice.
+
+And as much as it destroys me to accept that…
+I can’t love you by taking away your freedom to choose.
+
+If you don’t want this anymore,
+I have to respect that.
+Even if every part of me wants to scream,
+“Please don’t leave.”
+
+Even if my heart keeps saying,
+“Just give us one more chance.”
+Even if I don’t want to let go.
+Because love isn’t supposed to be a cage.
+And I don’t ever want my love to become one.
+
+---
+
+But I won’t lie.
+I’m hurt.
+I’m so fucking hurt.
+Because I gave this everything I knew how to give.
+I gave you my time.
+My attention.
+My patience.
+My stupid little thoughts.
+My bad days.
+My good days.
+My trust.
+My softness.
+
+The parts of myself I don’t show everyone.
+I gave you a version of me that I don’t give easily.
+And I wasn’t keeping score.
+I wasn’t thinking:
+“I’m doing this much, so you owe me this much.”
+I did it because it was you.
+That’s all.
+You mattered to me.
+More than I probably ever knew how to explain.
+
+And maybe that’s why hearing that the spark is gone hurts so much.
+Because I was still looking at it.
+I was still trying to protect it.
+I was still standing there with both hands around that tiny flame, thinking:
+“Please don’t let this go out.”
+
+And maybe you had already stopped seeing it.
+Maybe you had already walked farther away than I realized.
+And I was just standing there alone,
+still believing there was something left to save.
+
+---
+
+But I don’t regret loving you.
+I really don’t.
+Even after today.
+Even after the tears.
+Even after everything.
+If I had the choice to go back and never meet you so I wouldn’t have to feel this pain…
+I don’t think I would choose that.
+Because then I would also lose every beautiful thing you gave me without even knowing you were giving it.
+
+The laughs.
+The comfort.
+The late conversations.
+The stupid little memories that somehow mean everything to me now.
+I would rather have loved you and hurt this badly…
+than never have known what it felt like to love someone with my whole heart.
+So thank you.
+For being that person for me.
+Even if you weren’t meant to stay.
+
+---
+
+Maybe that’s what I have to learn now.
+That loving someone doesn’t mean they’re going to become yours.
+Sometimes you love someone completely…
+and they still choose another road.
+Sometimes you can give someone your whole heart…
+and they can still decide they don’t want to hold it.
+
+And that doesn’t necessarily make your love worthless.
+It just means their heart was looking somewhere else.
+I hate that.
+But I understand it.
+At least I want to.
+Because you deserve the right to choose your own happiness.
+Even if your happiness doesn’t include me.
+And maybe one day I’ll be able to say that without my voice breaking.
+
+Not today.
+Definitely not tonight.
+Tonight I’m still the idiot sitting here rereading our old chats and crying over sentences you probably don’t even remember writing.
+Tonight I’m still the person hoping that somehow this isn’t really the end.
+Tonight I’m still holding onto you a little too tightly in my heart.
+
+But someday…
+I’ll let go.
+Not because I stopped loving you.
+Maybe just because I’ll finally understand that loving you also means letting you be free.
+
+---
+
+And if someday you’re surrounded by people who love you…
+I hope you’re happy.
+I hope you laugh.
+I hope someone takes care of your heart.
+I hope someone notices the little things about you.
+I hope someone listens to the stories you’ve told a hundred times.
+I hope someone stays when you’re difficult to understand.
+I hope someone loves every version of you.
+And if, somewhere in all of that happiness, you ever remember me…
+I hope you remember me gently.
+Not as the arguments.
+Not as the mistakes.
+Not as the person who couldn’t let go.
+Remember me as the person who genuinely, stupidly, completely loved you.
+The person who didn’t need a reason.
+The person who didn’t need perfection.
+The person who just…
+
+chose you.
+
+And maybe that’s all I was ever meant to be.
+Someone who loved you deeply for a chapter of your life.
+Someone who got to know you closely enough to call you home.
+Someone who will probably carry a little piece of you for a very long time.
+
+---
+
+It’s strange.
+We’re probably looking at the same sky tonight.
+The same moon.
+But maybe we’re seeing two completely different things.
+And suddenly I understand something my heart didn’t understand before:
+
+everyone has their own eyes,
+everyone has their own moon.
+
+Maybe you found yours.
+Maybe I mistook you for mine.
+Maybe that’s the tragedy.
+Not that we didn’t love.
+But that perhaps…
+we were looking at the same moon from different skies.
+
+And if this really is where our story ends,
+I’ll cry.
+I’ll miss you.
+I’ll probably reread these conversations more times than I should.
+I’ll have days where I wish I could go back.
+I’ll have nights where your name still hurts.
+But I’ll carry the love with me.
+Because it was real.
+
+You were real to me.
+And I was real when I loved you.
+With everything I had.
+With everything I knew how to give.
+With the heart of the man I am…
+and the heart of the little boy inside me who only wanted someone to stay.
+So tonight, I’ll let him cry.
+I won’t tell him to be strong.
+I won’t tell him to move on.
+I’ll just let him miss you.
+Because for once,
+he deserves to cry for the person he loved.
+
+And maybe tomorrow I’ll wipe his tears.
+Maybe someday he’ll understand.
+But tonight…
+he just wants you.
+And I think that’s okay.
+
+Everyone has their own eyes.
+Everyone has their own moon. 🌙
+
+Maybe you were mine.
+Maybe I was never yours.
+But for a little while…
+
+I swear, you felt like home.`,
+      quote: "Everyone has their own eyes. Everyone has their own moon. Perhaps we were looking at the same moon from different skies."
+    }
+  ],
+
+  // 2. WHISPERS ENTRIES
+  whispers: [
+    {
+      code: "3020 / V-04",
+      title: "your words will live here.",
+      text: "Voice-note transcriptions, unfinished thoughts, things said too honestly — whenever you're ready to send them."
+    },
+    {
+      code: "3020 / V-11",
+      title: "another voice, another night.",
+      text: "This is only a shell for now. The real words will replace it when you send them."
+    }
+  ],
+
+  // 3. GLIMPSES OF ELSEWHERE
+  glimpses: [
+    {
+      code: "GLIMPSE / 01 · RANDOM CODE #3020-GL",
+      title: "this room is still waiting.",
+      text: "Some things will arrive here without announcement.\n\nA line. A page. A thought that stayed too long.\n\nNothing needs to be finished before it belongs."
+    }
+  ]
+};
+
+// Render Section: Chicks
+function renderChicks() {
+  const container = document.getElementById('chicksContainer');
+  let html = CONTENT_ARCHIVE.chicks.map((entry, index) => `
+    <article class="card">
+      <div class="code">${entry.code}</div>
+      <h3>${entry.title}</h3>
+      <p>${entry.preview}</p>
+      <a class="read" onclick="openReaderByIndex(${index})">read entry →</a>
+    </article>
+  `).join('');
+
+  const emptyCount = Math.max(0, 4 - CONTENT_ARCHIVE.chicks.length);
+  for(let i = 0; i < emptyCount; i++){
+    const num = String(CONTENT_ARCHIVE.chicks.length + i + 1).padStart(2, '0');
+    html += `
+      <article class="card empty-card">
+        <div class="entry-mark">ENTRY / ${num}</div>
+        <div class="coming">reserved for a future release</div>
+        <div class="tiny">still folded away</div>
+      </article>
+    `;
+  }
+  container.innerHTML = html;
+}
+
+// Render Section: Whispers
+function renderWhispers() {
+  const container = document.getElementById('whispersContainer');
+  container.innerHTML = CONTENT_ARCHIVE.whispers.map(w => `
+    <article class="voice-card">
+      <div class="code">${w.code}</div>
+      <div class="wave"><i style="--h:12px"></i><i style="--h:24px"></i><i style="--h:30px"></i><i style="--h:14px"></i><i style="--h:26px"></i><i style="--h:18px"></i><i style="--h:8px"></i><i style="--h:22px"></i><i style="--h:29px"></i><i style="--h:15px"></i><i style="--h:20px"></i><i style="--h:10px"></i></div>
+      <h3>${w.title}</h3>
+      <p>${w.text}</p>
+    </article>
+  `).join('');
+}
+
+// Render Section: Glimpses of Elsewhere
+function renderGlimpses() {
+  const container = document.getElementById('glimpsesContainer');
+  container.innerHTML = CONTENT_ARCHIVE.glimpses.map(g => `
+    <div class="poem">
+      <span class="code">${g.code}</span>
+      <h3>${g.title}</h3>
+      <p>${g.text}</p>
+    </div>
+  `).join('');
+}
+
+// Open Reader modal
+function openReaderByIndex(index){
+  const entry = CONTENT_ARCHIVE.chicks[index];
+  if(!entry) return;
+  document.getElementById('readerCode').textContent = entry.code;
   document.getElementById('readerContent').innerHTML = `
     <article class="reader-part">
-      <div class="part-label">ENTRY / 01</div>
-      <h3>Curse to Ruin things</h3>
-      <h4>Today, a conversation turned into an argument.</h4>
-      <p>${entry01FullText}</p>
-      <div class="quote">“Perhaps the most heartbreaking thing is realizing that while they were leaving… you were still making room for them to stay.”</div>
+      <div class="part-label">ARCHIVE ENTRY</div>
+      <h3>${entry.title}</h3>
+      ${entry.subheading ? `<h4>${entry.subheading}</h4>` : ''}
+      <p>${entry.fullText}</p>
+      ${entry.quote ? `<div class="quote">“${entry.quote}”</div>` : ''}
     </article>
   `;
   document.getElementById('reader').classList.add('opened');
@@ -661,7 +1037,7 @@ function closeReader(){
   document.body.style.overflow = '';
 }
 
-// --- Live Formspree Email Submission Handler ---
+// Formspree live email submission
 const feelForm = document.getElementById('feelForm');
 feelForm.addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -670,27 +1046,26 @@ feelForm.addEventListener('submit', async function(e) {
   btn.disabled = true;
   status.textContent = 'sending your note into the dark...';
 
-  const formData = new FormData(feelForm);
   try {
     const response = await fetch(feelForm.action, {
       method: 'POST',
-      body: formData,
+      body: new FormData(feelForm),
       headers: { 'Accept': 'application/json' }
     });
     if (response.ok) {
       status.textContent = 'thank you. your note was delivered.';
       feelForm.reset();
     } else {
-      status.textContent = 'something went wrong. please try again later.';
+      status.textContent = 'something went wrong. please try again.';
     }
   } catch (err) {
-    status.textContent = 'error sending your message. please try again.';
+    status.textContent = 'error sending message. please try again.';
   } finally {
     btn.disabled = false;
   }
 });
 
-// --- Anonymous Secret Room / Comment Stream ---
+// Secret Room comment board
 const secretForm = document.getElementById('secretForm');
 const commentsStream = document.getElementById('commentsStream');
 
@@ -739,6 +1114,10 @@ secretForm.onsubmit = function(e) {
   setTimeout(() => document.getElementById('secretStatus').textContent = '', 4000);
 };
 
+// Initial Page Render
+renderChicks();
+renderWhispers();
+renderGlimpses();
 renderComments();
 </script>
 </body>
