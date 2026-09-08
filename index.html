@@ -69,10 +69,6 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
   min-height:255px;transition:.3s;display:flex;flex-direction:column;
 }
 .card:hover{transform:translateY(-5px);box-shadow:0 14px 30px #51495212}
-.card .icon{
-  width:28px;height:28px;margin-bottom:20px;font:10px 'DM Mono';color:var(--muted);
-  display:flex;align-items:center;
-}
 .code{font:9px 'DM Mono';letter-spacing:.14em;color:var(--muted)}
 .card h3{font:500 31px 'Cormorant Garamond';margin:16px 0 10px}
 .card p{font-size:16px;line-height:1.8;color:#554e55}
@@ -115,19 +111,31 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
   width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;
   padding:10px 2px;outline:0;font:16px 'Playfair Display';
 }
-.field textarea{min-height:120px;resize:vertical}
+.field textarea{min-height:100px;resize:vertical}
 .button{
   background:transparent;border:1px solid var(--ink);padding:12px 18px;
   font:9px 'DM Mono';letter-spacing:.12em;cursor:pointer;
 }
 .status{min-height:18px;margin-top:12px;font:12px 'Playfair Display';font-style:italic;color:var(--muted)}
 
+/* Secret Room & Public Anonymous Wall */
 .secret{max-width:none;background:#e8e0e5}
-.secret-inner{max-width:800px;margin:auto;text-align:center}
+.secret-inner{max-width:850px;margin:auto;text-align:center}
 .secret h2{font:500 53px 'Cormorant Garamond';margin:0}
 .secret p{font-size:17px;line-height:1.7}
 .secretbox{text-align:left;margin-top:30px}
-.privacy{font:9px 'DM Mono';line-height:1.7;color:var(--muted);margin-top:16px}
+
+.comments-stream{
+  margin-top:40px;text-align:left;display:flex;flex-direction:column;gap:16px;
+}
+.comment-card{
+  background:var(--card);border:1px solid var(--line);padding:20px;position:relative;
+}
+.comment-card .meta{
+  display:flex;justify-content:space-between;font:9px 'DM Mono';color:var(--muted);letter-spacing:.1em;margin-bottom:8px;
+}
+.comment-card .alias{font-weight:600;color:var(--ink)}
+.comment-card p{font:16px 'Playfair Display';line-height:1.7;margin:0;color:#3e3740;white-space:pre-wrap}
 
 footer{text-align:center;padding:80px 20px 105px;font:9px 'DM Mono';letter-spacing:.1em;color:var(--muted)}
 footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bottom:10px}
@@ -146,7 +154,6 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   cursor:pointer;border-bottom:1px solid #aaa1aa;padding-bottom:5px;
 }
 .reader-part{padding:45px 0;border-bottom:1px solid #4b444d}
-.reader-part:last-child{border-bottom:0}
 .part-label{font:9px 'DM Mono';letter-spacing:.18em;color:#aaa1aa;margin-bottom:18px}
 .reader-part h3{font:500 43px 'Cormorant Garamond';margin:0 0 12px}
 .reader-part h4{font:italic 400 20px 'Playfair Display';margin:0 0 28px;color:#d8d0d0}
@@ -154,12 +161,6 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 .quote{
   margin:30px 0;padding-left:22px;border-left:1px solid #8e828e;
   font:italic 24px 'Cormorant Garamond';line-height:1.6;color:#d8d0d0;
-}
-.divider{
-  text-align:center;margin:40px 0;color:#aaa1aa;letter-spacing:.2em;font:11px 'DM Mono';
-}
-.release-note{
-  text-align:center;padding:35px 0;font:9px 'DM Mono';letter-spacing:.1em;color:#aaa1aa;
 }
 
 @media(max-width:700px){
@@ -202,14 +203,13 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 <section id="chicks">
   <div class="head">
     <div class="chick-title">
-      <span class="chick"><img src="chick-mono.png" alt="minimal line-drawn chick"></span>
+      <span class="chick"><img src="chick-mono.png" alt="chick"></span>
       <h2>chicks.</h2>
     </div>
     <span>pieces from somewhere between then & now</span>
   </div>
 
   <div class="grid">
-    <!-- ENTRY 01 FULL PIECE -->
     <article class="card">
       <div class="code">FSJAD-K-0307 · ENTRY / 01</div>
       <h3>Curse to Ruin things</h3>
@@ -261,33 +261,46 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   </div>
 </section>
 
+<!-- CONNECTED FORMSPREE FEEDBACK SECTION -->
 <section id="feeling" class="feeling">
   <div class="intro">
     <h2>before you leave.</h2>
     <p>You don't have to tell me who you are. I just want to know what a piece of this little archive made you feel.</p>
   </div>
-  <form class="form" id="feelForm">
+  <form class="form" id="feelForm" action="https://formspree.io/f/mkjnqdpz" method="POST">
     <div class="row">
-      <div class="field"><label>FIRST NAME (OPTIONAL)</label><input id="name" maxlength="40" placeholder="a name, if you'd like"></div>
-      <div class="field"><label>INITIAL (OPTIONAL)</label><input id="initial" maxlength="3" placeholder="♡"></div>
+      <div class="field"><label>NAME OR ALIAS (OPTIONAL)</label><input name="name" id="name" maxlength="40" placeholder="a name, if you'd like"></div>
+      <div class="field"><label>INITIAL (OPTIONAL)</label><input name="initial" id="initial" maxlength="3" placeholder="♡"></div>
     </div>
-    <div class="field"><label>WHAT DID YOU FEEL?</label><textarea id="feelingText" required maxlength="800" placeholder="leave a little piece of your thought here..."></textarea></div>
-    <button class="button">LEAVE THIS BEHIND ♡</button>
+    <div class="field"><label>WHAT DID YOU FEEL?</label><textarea name="message" id="feelingText" required maxlength="800" placeholder="leave a little piece of your thought here..."></textarea></div>
+    <button class="button" type="submit" id="feelSubmitBtn">LEAVE THIS BEHIND ♡</button>
     <div class="status" id="feelStatus"></div>
   </form>
 </section>
 
+<!-- ANONYMOUS PUBLIC COMMENT WALL -->
 <section id="secret" class="secret">
   <div class="secret-inner">
     <div style="font-size:22px">⌁</div>
     <h2>the secret room.</h2>
-    <p>You can tell me something you've never told anyone.<br>No name. No identity. Just the secret.</p>
+    <p>Leave a confession, an unspoken thought, or a quiet note.<br>Everyone who walks through here will be able to read it.</p>
+    
     <form class="secretbox" id="secretForm">
-      <div class="field"><label>YOUR SECRET</label><textarea id="secretText" required maxlength="1500" placeholder="write it here, anonymously..."></textarea></div>
-      <button class="button">LOCK IT AWAY</button>
+      <div class="row">
+        <div class="field">
+          <label>CHOOSE AN ALIAS / NAME (OPTIONAL)</label>
+          <input id="secretAlias" maxlength="30" placeholder="Anonymous Chick">
+        </div>
+      </div>
+      <div class="field">
+        <label>YOUR SECRET OR COMMENT</label>
+        <textarea id="secretText" required maxlength="1000" placeholder="Leave your mark on this wall..."></textarea>
+      </div>
+      <button class="button" type="submit">POST TO THE ROOM</button>
       <div class="status" id="secretStatus"></div>
-      <div class="privacy">This preview does not send submissions to a server. Before publishing, the secret room should be connected to a properly secured encryption/backend architecture.</div>
     </form>
+
+    <div class="comments-stream" id="commentsStream"></div>
   </div>
 </section>
 </main>
@@ -309,22 +322,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 </div>
 
 <script>
-const feelForm = document.getElementById('feelForm');
-feelForm.onsubmit = e => {
-  e.preventDefault();
-  document.getElementById('feelStatus').textContent =
-    'thank you. your note was saved only on this device in this preview.';
-  localStorage.setItem('desire_feedback', document.getElementById('feelingText').value);
-  e.target.reset();
-};
-
-document.getElementById('secretForm').onsubmit = e => {
-  e.preventDefault();
-  document.getElementById('secretStatus').textContent =
-    'sealed for this preview — nothing was sent anywhere.';
-  e.target.reset();
-};
-
+// --- Multi-part Reader ---
 const entry01FullText = `Today, a conversation turned into an argument.
 
 And somehow, somewhere between the words we threw at each other, I watched you cry because of me.
@@ -467,7 +465,7 @@ I remembered exactly why I was once so afraid of needing anyone.
 
 ---
 
-The worst part is that even after everything
+The worst part is that even after everything—
 after the anger,
 after the frustration,
 after everything you said,
@@ -611,7 +609,7 @@ For every moment my love for this bond became something that hurt you instead of
 I’m sorry I made the person who felt like home feel like she needed to leave.
 And if the spark really is gone…
 then I suppose I have to accept that.
-But God, I hope you know
+But God, I hope you know—
 I didn’t stop seeing it.
 
 I was still looking for it.
@@ -629,19 +627,19 @@ but some foolish part of me is still waiting for you to say,
 And until that part of me finally learns otherwise,
 I’ll sit here quietly,
 with everything I never managed to say,
-and love you from the only distance I have left
+and love you from the only distance I have left—
 
 silence.
 
 Maybe some people don’t leave your life all at once.
-Maybe they leave slowly
+Maybe they leave slowly—
 first from your conversations,
 then from your mornings,
 then from your nights,
 and finally from the little places inside you where you had quietly made a home for them.
 And perhaps the most heartbreaking thing is realizing that while they were leaving…
 
-you were still making room for them to stay.
+you were still making room for them to stay.`;
 
 function openEntry01(){
   document.getElementById('readerCode').textContent = "DESIRE / 3020 · FSJAD-K-0307";
@@ -651,7 +649,7 @@ function openEntry01(){
       <h3>Curse to Ruin things</h3>
       <h4>Today, a conversation turned into an argument.</h4>
       <p>${entry01FullText}</p>
-      <div class="quote">“ʚଓ Perhaps the most heartbreaking thing is realizing that while they were leaving… you were still making room for them to stay.ʚଓ ”</div>
+      <div class="quote">“Perhaps the most heartbreaking thing is realizing that while they were leaving… you were still making room for them to stay.”</div>
     </article>
   `;
   document.getElementById('reader').classList.add('opened');
@@ -662,6 +660,86 @@ function closeReader(){
   document.getElementById('reader').classList.remove('opened');
   document.body.style.overflow = '';
 }
+
+// --- Live Formspree Email Submission Handler ---
+const feelForm = document.getElementById('feelForm');
+feelForm.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const status = document.getElementById('feelStatus');
+  const btn = document.getElementById('feelSubmitBtn');
+  btn.disabled = true;
+  status.textContent = 'sending your note into the dark...';
+
+  const formData = new FormData(feelForm);
+  try {
+    const response = await fetch(feelForm.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      status.textContent = 'thank you. your note was delivered.';
+      feelForm.reset();
+    } else {
+      status.textContent = 'something went wrong. please try again later.';
+    }
+  } catch (err) {
+    status.textContent = 'error sending your message. please try again.';
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// --- Anonymous Secret Room / Comment Stream ---
+const secretForm = document.getElementById('secretForm');
+const commentsStream = document.getElementById('commentsStream');
+
+function getStoredComments() {
+  const data = localStorage.getItem('desire_secrets');
+  return data ? JSON.parse(data) : [
+    {
+      alias: "quiet stranger",
+      text: "I kept reading until I ran out of words. Thank you for putting this somewhere.",
+      time: "A while ago"
+    }
+  ];
+}
+
+function renderComments() {
+  const comments = getStoredComments();
+  commentsStream.innerHTML = comments.map(c => `
+    <div class="comment-card">
+      <div class="meta">
+        <span class="alias">${c.alias}</span>
+        <span>${c.time}</span>
+      </div>
+      <p>${c.text}</p>
+    </div>
+  `).join('');
+}
+
+secretForm.onsubmit = function(e) {
+  e.preventDefault();
+  const aliasInput = document.getElementById('secretAlias');
+  const textInput = document.getElementById('secretText');
+  
+  const newComment = {
+    alias: aliasInput.value.trim() || "Anonymous",
+    text: textInput.value.trim(),
+    time: new Date().toLocaleDateString(undefined, {month:'short', day:'numeric'})
+  };
+
+  const comments = getStoredComments();
+  comments.unshift(newComment);
+  localStorage.setItem('desire_secrets', JSON.stringify(comments));
+
+  renderComments();
+  document.getElementById('secretStatus').textContent = 'Sealed and added to the wall.';
+  textInput.value = '';
+  setTimeout(() => document.getElementById('secretStatus').textContent = '', 4000);
+};
+
+renderComments();
 </script>
 </body>
 </html>
