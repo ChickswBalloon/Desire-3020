@@ -132,7 +132,7 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 footer{text-align:center;padding:80px 20px 105px;font:9px 'DM Mono';letter-spacing:.1em;color:var(--muted)}
 footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bottom:10px}
 
-/* Reader template for multi-part entries */
+/* Reader popup */
 .reader{
   display:none;position:fixed;inset:0;z-index:100;
   background:rgba(33,29,38,.96);overflow:auto;padding:70px 6vw;
@@ -154,6 +154,9 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 .quote{
   margin:30px 0;padding-left:22px;border-left:1px solid #8e828e;
   font:italic 24px 'Cormorant Garamond';line-height:1.6;color:#d8d0d0;
+}
+.divider{
+  text-align:center;margin:40px 0;color:#aaa1aa;letter-spacing:.2em;font:11px 'DM Mono';
 }
 .release-note{
   text-align:center;padding:35px 0;font:9px 'DM Mono';letter-spacing:.1em;color:#aaa1aa;
@@ -206,7 +209,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   </div>
 
   <div class="grid">
-    <!-- ENTRY 01 -->
+    <!-- ENTRY 01 FULL PIECE -->
     <article class="card">
       <div class="code">FSJAD-K-0307 · ENTRY / 01</div>
       <h3>Curse to Ruin things</h3>
@@ -295,7 +298,6 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   an archive, not a timeline.
 </footer>
 
-<!-- Multi-part reader popup -->
 <div class="reader" id="reader">
   <div class="reader-inner">
     <div class="reader-top">
@@ -323,13 +325,10 @@ document.getElementById('secretForm').onsubmit = e => {
   e.target.reset();
 };
 
-const entry01Parts = [
-  {
-    heading: "Curse to Ruin things",
-    subheading: "Today, a conversation turned into an argument.",
-    body: `And somehow, somewhere between the words we threw at each other, I watched you cry because of me.
-I heard it through the phone.
+const entry01FullText = `Today, a conversation turned into an argument.
 
+And somehow, somewhere between the words we threw at each other, I watched you cry because of me.
+I heard it through the phone.
 idk why i m writing this.
 Maybe because I can’t sleep.
 Maybe because my mind keeps replaying your voice.
@@ -350,6 +349,7 @@ Not to explain my side.
 Not to make you understand me.
 
 Just to hold the moment still before everything became ugly and tell myself:
+
 “Don’t say it. She’s already hurting.”
 
 But I didn’t.
@@ -367,346 +367,297 @@ And I heard every bit of it.
 I wish I hadn’t.
 Not because I don’t want to know how you feel.
 But because now I know what my words sound like when they reach someone I love.
-They sound like pain.`,
-    quote: "And I never wanted my voice to become something you were afraid of."
-  }
-];
+They sound like pain.
+
+And I never wanted my voice to become something you were afraid of.
+
+---
+
+You know what’s strange?
+I don’t give people this much of me.
+I really don’t.
+People come.
+People go.
+Some stay for a little while.
+Some disappear without me even noticing.
+And I’m usually okay with it.
+If I don’t feel something for someone, I don’t force it.
+I don’t chase.
+I don’t beg.
+I don’t sit awake wondering why they didn’t reply.
+I just…
+leave.
+
+I cut people off so easily sometimes that even I scare myself.
+But you?
+
+You ruined that habit.
+
+You made me care.
+And I don’t even remember when it happened.
+There wasn’t a particular day.
+No particular conversation.
+No moment where I decided:
+“Yes, this person is going to become important to me.”
+
+It just happened.
+
+Slowly.
+
+Quietly.
+
+Until one day I realized that when something happened in my life, good or bad, my first thought was:
+“I need to tell her.”
+
+And somehow, without asking for permission, you became part of my everyday life.
+My stupid thoughts.
+My random stories.
+My smallest achievements.
+My bad days.
+My good days.
+Things nobody else would understand.
+Things I probably wouldn’t even say out loud to anyone else.
+I gave them to you.
+Piece by piece.
+Not because I had to.
+Because I wanted to.
+
+Because somewhere inside me, I trusted you enough to believe that you would hold those pieces gently.
+
+And maybe that’s why losing you feels different.
+
+Because I wouldn’t just be losing a person.
+I’d be losing the place where I put so much of myself.
+
+---
+
+And when you said, “Leave me alone.”
+I wish you knew what that sounded like inside my head.
+Maybe to you, it was just a sentence.
+Maybe you needed space.
+Maybe you were angry.
+Maybe you didn’t mean it the way I heard it.
+But I heard it as—
+“I don’t want you here anymore.”
+
+And suddenly I was alone with everything I had been trying not to feel.
+You know what scares me?
+I’ve already been alone before.
+I’ve survived that version of myself.
+The one who sits quietly with tears in his eyes because there’s nobody to call.
+The one who tells himself:
+“It’s okay, you’ll get through this.”
+when he doesn’t actually know if he will.
+I’ve held myself together at some of the lowest points of my life.
+
+I’ve cried quietly.
+I’ve wiped my own tears.
+I’ve convinced myself that needing someone is weakness.
+
+And then you came along…
+and somehow I stopped believing that.
+I let myself need you.
+Just a little.
+Maybe too much.
+I let myself believe that if the whole world became quiet,
+I could still call you.
+
+And tonight, when you left me alone…
+I remembered exactly why I was once so afraid of needing anyone.
+
+---
+
+The worst part is that even after everything—
+after the anger,
+after the frustration,
+after everything you said,
+after everything I wanted to say—
+when the anger finally disappeared…
+
+I still wanted you.
+Not revenge.
+Not an apology.
+Not to win.
+
+Just you.
+
+I came back because that’s what my heart does.
+It doesn’t know how to punish you.
+It only knows how to miss you.
+And then you were silent.
+
+And somehow your silence hurt more than the argument.
+Because anger still means there’s something there.
+Silence feels like the end.
+And then you said it:
+
+“The spark is gone.”
+
+I don’t think you realize how quietly that sentence destroyed me.
+Because I have spent so much time trying to protect whatever this is between us.
+I’ve given it everything I had.
+
+My patience.
+My time.
+My attention.
+My effort.
+My heart.
+
+Maybe even more than I should have.
+A thousand percent.
+And I know that sounds impossible.
+But you know me.
+You know that if I don’t care, I don’t even give one percent.
+So if I gave you a thousand…
+you know what that means.
+You know what you became.
+
+---
+
+And maybe that’s why I’m sitting here at this hour, wondering where we went wrong.
+
+Was it today?
+Was it weeks ago?
+Was it that one conversation we never properly understood?
+Was it all the little things we kept forgiving until they became too heavy?
+
+Or did we simply become two people who loved the same bond but didn’t know how to take care of it anymore?
+
+I don’t know.
+And I hate not knowing.
+I hate that I can’t fix this by trying harder.
+Because if effort could fix everything,
+I’d have fixed us already.
+If apologies could bring back a feeling,
+I’d apologize until morning.
+If loving someone hard enough could make them stay,
+I’d never let you go.
+But people aren’t promises.
+And hearts aren’t things you can hold in your hands and ask not to leave.
+I know that.
+I just… wish knowing it made it hurt less.
+
+---
+
+Maybe the spark isn’t gone.
+Maybe it’s just buried.
+Under the things we said.
+Under the things we never said.
+Under pride.
+Under disappointment.
+Under all those little moments where we needed each other and somehow ended up hurting each other instead.
+
+Maybe somewhere beneath all of that,
+there’s still the same two people who once laughed over the smallest things.
+The same two people who didn’t need a reason to talk.
+The same two people who could turn an ordinary day into something worth remembering.
+Maybe she’s still there.
+Maybe I’m still here.
+Maybe we are still somewhere between us.
+I don’t know.
+And maybe that’s the cruelest part.
+I still have hope.
+Even when I know I shouldn’t.
+
+---
+
+If you ever read this,
+please don’t read it as me asking you to stay because you feel guilty.
+Don’t stay because I cried.
+Don’t stay because I said I can’t live without you.
+I don’t want a person who stays because they’re afraid of hurting me.
+I want you to stay only if some part of your heart still wants to.
+Because that’s the only kind of staying that means anything.
+And if you truly don’t want this anymore…
+I’ll eventually learn how to accept it.
+
+I’ll eventually learn how to wake up without looking for your name.
+I’ll eventually learn how to have something happen and not instinctively reach for my phone to tell you.
+I’ll eventually learn how to carry all these little pieces of you without breaking every time I touch them.
+
+I’ll survive.
+I always do.
+But please don’t ever mistake surviving you for not loving you.
+Those are two completely different things.
+
+---
+
+Tonight, I don’t know what tomorrow looks like.
+Maybe you’ll talk to me.
+Maybe you won’t.
+Maybe we’ll fix this.
+Maybe we’ll slowly become strangers.
+Maybe one day we’ll look back at this and wonder why we almost lost something so beautiful.
+Or maybe this really is the night where everything changed.
+I don’t know.
+All I know is that somewhere tonight, the person I never wanted to hurt is probably sleeping with tears I put there.
+And I’m here, staring at a screen,
+wishing I could reach through it,
+wipe them away,
+and whisper:
+“I’m sorry.”
+
+Not the easy kind of sorry.
+Not the kind you say because an argument needs an ending.
+I mean the kind of sorry that sits in your chest.
+The kind that follows you into silence.
+The kind that makes you wish you could trade places with the person you hurt.
+I’m sorry.
+For today.
+For every time I chose frustration over tenderness.
+For every word that came out wrong.
+For every moment my love for this bond became something that hurt you instead of something that made you feel safe.
+
+I’m sorry I made the person who felt like home feel like she needed to leave.
+And if the spark really is gone…
+then I suppose I have to accept that.
+But God, I hope you know—
+I didn’t stop seeing it.
+
+I was still looking for it.
+Still protecting it.
+Still choosing it.
+Still choosing you.
+Even tonight.
+Especially tonight.
+And maybe that’s why I can’t sleep.
+Because my heart hasn’t received the message yet.
+You said goodbye…
+but some foolish part of me is still waiting for you to say,
+“Come back.”
+
+And until that part of me finally learns otherwise,
+I’ll sit here quietly,
+with everything I never managed to say,
+and love you from the only distance I have left—
+
+silence.
+
+Maybe some people don’t leave your life all at once.
+Maybe they leave slowly
+first from your conversations,
+then from your mornings,
+then from your nights,
+and finally from the little places inside you where you had quietly made a home for them.
+And perhaps the most heartbreaking thing is realizing that while they were leaving…
+
+you were still making room for them to stay.`;
 
 function openEntry01(){
-  openReader("DESIRE / 3020 · FSJAD-K-0307", entry01Parts);
-}
-
-function openReader(code, parts){
-  document.getElementById('readerCode').textContent = code;
-  document.getElementById('readerContent').innerHTML = parts.map((part, i) => `
+  document.getElementById('readerCode').textContent = "DESIRE / 3020 · FSJAD-K-0307";
+  document.getElementById('readerContent').innerHTML = `
     <article class="reader-part">
-      <div class="part-label">PART ${String(i+1).padStart(2,'0')}</div>
-      ${part.heading ? `<h3>${part.heading}</h3>` : ''}
-      ${part.subheading ? `<h4>${part.subheading}</h4>` : ''}
-      ${part.body ? `<p>${part.body}</p>` : ''}
-      ${part.quote ? `<div class="quote">“${part.quote}”</div>` : ''}
+      <div class="part-label">ENTRY / 01</div>
+      <h3>Curse to Ruin things</h3>
+      <h4>Today, a conversation turned into an argument.</h4>
+      <p>${entry01FullText}</p>
+      <div class="quote">“Perhaps the most heartbreaking thing is realizing that while they were leaving… you were still making room for them to stay.”</div>
     </article>
-  `).join('') + '<div class="release-note">more will appear here when the next part is released.</div>';
+  `;
   document.getElementById('reader').classList.add('opened');
   document.body.style.overflow = 'hidden';
 }
 
-function closeReader(){
-  document.getElementById('reader').classList.remove('opened');
-  document.body.style.overflow = '';
-}
-</script>
-</body>
-</html>
-
-.hero{
-  min-height:100vh;display:grid;place-items:center;text-align:center;
-  padding:100px 7vw;position:relative;
-}
-.eyebrow{font:10px 'DM Mono';letter-spacing:.24em;color:var(--muted)}
-h1{
-  font:400 clamp(62px,13vw,155px) 'Cormorant Garamond';
-  line-height:.72;letter-spacing:-.06em;margin:32px 0;
-}
-.hero h1 span{
-  display:block;font:italic 400 clamp(21px,3vw,34px) 'Playfair Display';
-  letter-spacing:0;line-height:1.3;margin-top:28px;
-}
-.hero p{font-size:19px;line-height:1.8;font-style:italic;color:#514952}
-.open{
-  display:inline-block;margin-top:30px;color:inherit;text-decoration:none;
-  font:10px 'DM Mono';letter-spacing:.15em;border-bottom:1px solid;padding-bottom:7px;
-}
-.risk{position:absolute;bottom:28px;font:9px 'DM Mono';letter-spacing:.12em;color:var(--muted)}
-
-section{max-width:1200px;margin:auto;padding:100px 7vw}
-.head{
-  display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);
-  padding-bottom:14px;margin-bottom:35px;
-}
-.head h2{margin:0;font:500 clamp(38px,5vw,60px) 'Cormorant Garamond'}
-.head span{font:9px 'DM Mono';color:var(--muted)}
-
-.chick-title{display:flex;align-items:center;gap:16px}
-.chick{
-  width:54px;height:54px;display:block;overflow:visible;
-}
-.chick img{
-  width:100%;height:100%;object-fit:contain;display:block;
-}
-
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.card{
-  background:var(--card);border:1px solid var(--line);padding:30px;
-  min-height:255px;transition:.3s;display:flex;flex-direction:column;
-}
-.card:hover{transform:translateY(-5px);box-shadow:0 14px 30px #51495212}
-.card .icon{
-  width:28px;height:28px;margin-bottom:20px;font:10px 'DM Mono';color:var(--muted);
-  display:flex;align-items:center;
-}
-.code{font:9px 'DM Mono';letter-spacing:.14em;color:var(--muted)}
-.card h3{font:500 31px 'Cormorant Garamond';margin:16px 0 10px}
-.card p{font-size:16px;line-height:1.8;color:#554e55}
-.read{
-  margin-top:auto;align-self:flex-start;font:9px 'DM Mono';letter-spacing:.1em;
-  color:inherit;text-decoration:none;border-bottom:1px solid;padding-bottom:4px;
-}
-.empty-card{
-  justify-content:center;align-items:center;text-align:center;min-height:230px;
-  background:rgba(250,247,244,.45);
-}
-.empty-card .entry-mark{font:10px 'DM Mono';letter-spacing:.16em;color:var(--muted);margin-bottom:12px}
-.empty-card .coming{font:italic 25px 'Cormorant Garamond';color:#514952}
-.empty-card .tiny{font:9px 'DM Mono';letter-spacing:.1em;color:var(--muted);margin-top:10px}
-
-.voice{background:#eee8e4;max-width:none}
-.voice-grid{max-width:1050px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.voice-card{background:var(--card);border:1px solid var(--line);padding:32px}
-.voice-card h3{font:500 35px 'Cormorant Garamond';margin:14px 0}
-.voice-card p{font-size:17px;line-height:1.85;font-style:italic}
-.wave{height:30px;display:flex;align-items:center;gap:3px}
-.wave i{width:2px;background:#777;height:var(--h);display:block;border-radius:2px}
-
-.dark{max-width:none;background:var(--night);color:#eee8e4;padding-left:12vw;padding-right:12vw}
-.dark .head{border-color:#4b444d}
-.dark .head span{color:#aaa1aa}
-.poem{max-width:720px;text-align:center;margin:45px auto}
-.poem h3{font:400 43px 'Cormorant Garamond'}
-.poem p{font-size:20px;line-height:2;font-style:italic;color:#d8d0d0}
-
-.feeling{max-width:850px}
-.intro{text-align:center;margin-bottom:40px}
-.intro h2{font:500 48px 'Cormorant Garamond';margin:0}
-.intro p{color:var(--muted);line-height:1.7}
-.form,.secretbox{background:var(--card);border:1px solid var(--line);padding:30px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.field{margin-bottom:18px}
-.field label{display:block;font:9px 'DM Mono';letter-spacing:.12em;color:var(--muted);margin-bottom:8px}
-.field input,.field textarea{
-  width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;
-  padding:10px 2px;outline:0;font:16px 'Playfair Display';
-}
-.field textarea{min-height:120px;resize:vertical}
-.button{
-  background:transparent;border:1px solid var(--ink);padding:12px 18px;
-  font:9px 'DM Mono';letter-spacing:.12em;cursor:pointer;
-}
-.status{min-height:18px;margin-top:12px;font:12px 'Playfair Display';font-style:italic;color:var(--muted)}
-
-.secret{max-width:none;background:#e8e0e5}
-.secret-inner{max-width:800px;margin:auto;text-align:center}
-.secret h2{font:500 53px 'Cormorant Garamond';margin:0}
-.secret p{font-size:17px;line-height:1.7}
-.secretbox{text-align:left;margin-top:30px}
-.privacy{font:9px 'DM Mono';line-height:1.7;color:var(--muted);margin-top:16px}
-
-footer{text-align:center;padding:80px 20px 105px;font:9px 'DM Mono';letter-spacing:.1em;color:var(--muted)}
-footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bottom:10px}
-
-/* Reader template for your future multi-part entries */
-.reader{
-  display:none;position:fixed;inset:0;z-index:100;
-  background:rgba(33,29,38,.96);overflow:auto;padding:70px 6vw;
-}
-.reader.opened{display:block}
-.reader-inner{max-width:820px;margin:auto;color:#eee8e4}
-.reader-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:50px}
-.reader-code{font:9px 'DM Mono';letter-spacing:.15em;color:#aaa1aa}
-.close{
-  color:#eee8e4;background:none;border:0;font:9px 'DM Mono';letter-spacing:.12em;
-  cursor:pointer;border-bottom:1px solid #aaa1aa;padding-bottom:5px;
-}
-.reader-part{padding:45px 0;border-bottom:1px solid #4b444d}
-.reader-part:last-child{border-bottom:0}
-.part-label{font:9px 'DM Mono';letter-spacing:.18em;color:#aaa1aa;margin-bottom:18px}
-.reader-part h3{font:500 43px 'Cormorant Garamond';margin:0 0 12px}
-.reader-part h4{font:italic 400 20px 'Playfair Display';margin:0 0 28px;color:#d8d0d0}
-.reader-part p{font:19px 'Playfair Display';line-height:2;color:#eee8e4;white-space:pre-line}
-.quote{
-  margin:30px 0;padding-left:22px;border-left:1px solid #8e828e;
-  font:italic 24px 'Cormorant Garamond';line-height:1.6;color:#d8d0d0;
-}
-.release-note{
-  text-align:center;padding:35px 0;font:9px 'DM Mono';letter-spacing:.1em;color:#aaa1aa;
-}
-
-@media(max-width:700px){
-  .nav{gap:9px}.nav a{font-size:7px}
-  .grid,.voice-grid,.row{grid-template-columns:1fr}
-  .hero h1{font-size:85px}.hero p br{display:none}
-  section{padding-top:75px;padding-bottom:75px}
-  .dark{padding-left:7vw;padding-right:7vw}
-  .head{gap:15px}.head span{display:none}
-  .chick{width:48px;height:48px}
-  .reader{padding:50px 7vw}
-  .reader-part h3{font-size:37px}
-  .reader-part p{font-size:17px}
-}
-</style>
-</head>
-<body>
-
-<header>
-  <div class="logo">DESIRE / 3020</div>
-  <nav class="nav">
-    <a href="#chicks">CHICKS</a>
-    <a href="#whispers">WHISPERS</a>
-    <a href="#glimpses">GLIMPSES</a>
-    <a href="#secret">SECRET</a>
-  </nav>
-</header>
-
-<main>
-<section class="hero">
-  <div>
-    <div class="eyebrow">between the love</div>
-    <h1>DESIRE / 3020<span>stay, if your heart allows.</span></h1>
-    <p>an archive of thoughts, memories, strange little feelings,<br>and things that were never meant to be said out loud.</p>
-    <a class="open" href="#chicks">open the archive</a>
-  </div>
-  <div class="risk">if you stay, read gently.</div>
-</section>
-
-<section id="chicks">
-  <div class="head">
-    <div class="chick-title">
-      <span class="chick"><img src="chick-mono.png" alt="minimal line-drawn chick"></span>
-      <h2>chicks.</h2>
-    </div>
-    <span>pieces from somewhere between then & now</span>
-  </div>
-
-  <!-- ENTRY SHELLS — headings, subheadings, quotes and writing will be added from your messages. -->
-  <div class="grid">
-    <article class="card empty-card">
-      <div class="entry-mark">ENTRY / 01</div>
-      <div class="coming">waiting for its words.</div>
-      <div class="tiny">part one will arrive here</div>
-    </article>
-    <article class="card empty-card">
-      <div class="entry-mark">ENTRY / 02</div>
-      <div class="coming">not written yet.</div>
-      <div class="tiny">reserved for a future release</div>
-    </article>
-    <article class="card empty-card">
-      <div class="entry-mark">ENTRY / 03</div>
-      <div class="coming">still folded away.</div>
-      <div class="tiny">reserved for a future release</div>
-    </article>
-    <article class="card empty-card">
-      <div class="entry-mark">ENTRY / 04</div>
-      <div class="coming">leave this one unopened.</div>
-      <div class="tiny">reserved for a future release</div>
-    </article>
-  </div>
-</section>
-
-<section id="whispers" class="voice">
-  <div class="head"><h2>whispers of arrogance.</h2><span>unfiltered / transcribed</span></div>
-  <div class="voice-grid">
-    <article class="voice-card">
-      <div class="code">3020 / V-04</div>
-      <div class="wave"><i style="--h:8px"></i><i style="--h:18px"></i><i style="--h:27px"></i><i style="--h:12px"></i><i style="--h:29px"></i><i style="--h:20px"></i><i style="--h:9px"></i><i style="--h:23px"></i><i style="--h:31px"></i><i style="--h:15px"></i><i style="--h:25px"></i><i style="--h:11px"></i></div>
-      <h3>your words will live here.</h3>
-      <p>Voice-note transcriptions, unfinished thoughts, things said too honestly — whenever you're ready to send them.</p>
-    </article>
-    <article class="voice-card">
-      <div class="code">3020 / V-11</div>
-      <div class="wave"><i style="--h:18px"></i><i style="--h:10px"></i><i style="--h:25px"></i><i style="--h:31px"></i><i style="--h:14px"></i><i style="--h:22px"></i><i style="--h:8px"></i><i style="--h:28px"></i><i style="--h:17px"></i><i style="--h:30px"></i><i style="--h:12px"></i><i style="--h:21px"></i></div>
-      <h3>another voice, another night.</h3>
-      <p>This is only a shell for now. The real words will replace it when you send them.</p>
-    </article>
-  </div>
-</section>
-
-<section id="glimpses" class="dark">
-  <div class="head"><h2>glimpses of elsewhere.</h2><span>strange / beautiful / unnecessary</span></div>
-  <div class="poem">
-    <h3>this room is still waiting.</h3>
-    <p>Some things will arrive here without announcement.<br><br>A line. A page. A thought that stayed too long.<br><br>Nothing needs to be finished before it belongs.</p>
-  </div>
-</section>
-
-<section id="feeling" class="feeling">
-  <div class="intro">
-    <h2>before you leave.</h2>
-    <p>You don't have to tell me who you are. I just want to know what a piece of this little archive made you feel.</p>
-  </div>
-  <form class="form" id="feelForm">
-    <div class="row">
-      <div class="field"><label>FIRST NAME (OPTIONAL)</label><input id="name" maxlength="40" placeholder="a name, if you'd like"></div>
-      <div class="field"><label>INITIAL (OPTIONAL)</label><input id="initial" maxlength="3" placeholder="♡"></div>
-    </div>
-    <div class="field"><label>WHAT DID YOU FEEL?</label><textarea id="feelingText" required maxlength="800" placeholder="leave a little piece of your thought here..."></textarea></div>
-    <button class="button">LEAVE THIS BEHIND ♡</button>
-    <div class="status" id="feelStatus"></div>
-  </form>
-</section>
-
-<section id="secret" class="secret">
-  <div class="secret-inner">
-    <div style="font-size:22px">⌁</div>
-    <h2>the secret room.</h2>
-    <p>You can tell me something you've never told anyone.<br>No name. No identity. Just the secret.</p>
-    <form class="secretbox" id="secretForm">
-      <div class="field"><label>YOUR SECRET</label><textarea id="secretText" required maxlength="1500" placeholder="write it here, anonymously..."></textarea></div>
-      <button class="button">LOCK IT AWAY</button>
-      <div class="status" id="secretStatus"></div>
-      <div class="privacy">This preview does not send submissions to a server. Before publishing, the secret room should be connected to a properly secured encryption/backend architecture.</div>
-    </form>
-  </div>
-</section>
-</main>
-
-<footer>
-  <b>DESIRE / 3020</b>
-  between the love · stay, if your heart allows.<br><br>
-  an archive, not a timeline.
-</footer>
-
-<!-- Future multi-part reader. It is intentionally empty until real entry content is supplied. -->
-<div class="reader" id="reader">
-  <div class="reader-inner">
-    <div class="reader-top">
-      <div class="reader-code" id="readerCode"></div>
-      <button class="close" onclick="closeReader()">CLOSE ×</button>
-    </div>
-    <div id="readerContent"></div>
-  </div>
-</div>
-
-<script>
-const feelForm = document.getElementById('feelForm');
-feelForm.onsubmit = e => {
-  e.preventDefault();
-  document.getElementById('feelStatus').textContent =
-    'thank you. your note was saved only on this device in this preview.';
-  localStorage.setItem('desire_feedback', document.getElementById('feelingText').value);
-  e.target.reset();
-};
-
-document.getElementById('secretForm').onsubmit = e => {
-  e.preventDefault();
-  document.getElementById('secretStatus').textContent =
-    'sealed for this preview — nothing was sent anywhere.';
-  e.target.reset();
-};
-
-function openReader(code, parts){
-  document.getElementById('readerCode').textContent = code;
-  document.getElementById('readerContent').innerHTML = parts.map((part, i) => `
-    <article class="reader-part">
-      <div class="part-label">PART ${String(i+1).padStart(2,'0')}</div>
-      ${part.heading ? `<h3>${part.heading}</h3>` : ''}
-      ${part.subheading ? `<h4>${part.subheading}</h4>` : ''}
-      ${part.body ? `<p>${part.body}</p>` : ''}
-      ${part.quote ? `<div class="quote">“${part.quote}”</div>` : ''}
-    </article>
-  `).join('') + '<div class="release-note">more will appear here when the next part is released.</div>';
-  document.getElementById('reader').classList.add('opened');
-  document.body.style.overflow = 'hidden';
-}
 function closeReader(){
   document.getElementById('reader').classList.remove('opened');
   document.body.style.overflow = '';
