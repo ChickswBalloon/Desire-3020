@@ -13,7 +13,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:'Playfair Display',serif}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Playfair Display',serif;position:relative}
 body:before{
   content:"";position:fixed;inset:0;pointer-events:none;opacity:.07;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -135,10 +135,22 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 .comment-card .alias{font-weight:600;color:var(--ink)}
 .comment-card p{font:16px 'Playfair Display';line-height:1.7;margin:0;color:#3e3740;white-space:pre-wrap}
 
-footer{text-align:center;padding:80px 20px 105px;font:9px 'DM Mono';letter-spacing:.1em;color:var(--muted)}
-footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bottom:10px}
+/* Footer Section with Dedicated Author & Corner Note */
+footer{
+  text-align:center;padding:80px 20px 115px;font:9px 'DM Mono';letter-spacing:.1em;color:var(--muted);position:relative;
+}
+footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bottom:6px}
+.footer-author{
+  font:italic 16px 'Playfair Display';color:var(--ink);margin-bottom:12px;letter-spacing:0;
+}
+.footer-love{
+  font:13px 'Playfair Display';font-style:italic;color:#635665;margin:10px 0 16px;
+}
+.corner-note{
+  position:absolute;bottom:16px;right:20px;font:9px 'DM Mono';color:#a197a1;letter-spacing:.1em;opacity:.7;
+}
 
-/* Sticky Reader Popup with Always-Visible Close Button */
+/* Sticky Reader Popup with Fixed Top Bar */
 .reader{
   display:none;position:fixed;inset:0;z-index:100;
   background:rgba(33,29,38,.96);overflow-y:auto;padding:100px 6vw 70px;
@@ -179,6 +191,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   .reader{padding:90px 7vw 50px}
   .reader-part h3{font-size:37px}
   .reader-part p{font-size:17px}
+  .corner-note{position:static;margin-top:24px;display:block;text-align:center}
 }
 </style>
 </head>
@@ -197,7 +210,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 <main>
 <section class="hero">
   <div>
-    <div class="eyebrow">ft.Bhavishyaa </div>
+    <div class="eyebrow">between the love</div>
     <h1>DESIRE / 3020<span>stay, if your heart allows.</span></h1>
     <p>an archive of thoughts, memories, strange little feelings,<br>and things that were never meant to be said out loud.</p>
     <a class="open" href="#chicks">open the archive</a>
@@ -215,25 +228,19 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
     <span>pieces from somewhere between then & now</span>
   </div>
 
-  <div class="grid" id="chicksContainer">
-    <!-- Rendered dynamically from CONTENT_ARCHIVE.chicks -->
-  </div>
+  <div class="grid" id="chicksContainer"></div>
 </section>
 
 <!-- SECTION 2: WHISPERS -->
 <section id="whispers" class="voice">
   <div class="head"><h2>whispers of arrogance.</h2><span>unfiltered / transcribed</span></div>
-  <div class="voice-grid" id="whispersContainer">
-    <!-- Rendered dynamically from CONTENT_ARCHIVE.whispers -->
-  </div>
+  <div class="voice-grid" id="whispersContainer"></div>
 </section>
 
 <!-- SECTION 3: GLIMPSES OF ELSEWHERE -->
 <section id="glimpses" class="dark">
   <div class="head"><h2>glimpses of elsewhere.</h2><span>strange / beautiful / unnecessary</span></div>
-  <div class="poem-list" id="glimpsesContainer">
-    <!-- Rendered dynamically from CONTENT_ARCHIVE.glimpses -->
-  </div>
+  <div class="poem-list" id="glimpsesContainer"></div>
 </section>
 
 <!-- SECTION 4: FEEDBACK -->
@@ -282,11 +289,17 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 
 <footer>
   <b>DESIRE / 3020</b>
-  between the love · stay, if your heart allows.<br><br>
-  an archive, not a timeline.
+  <div class="footer-author">— Bhavishyaa Wasnikar</div>
+  <div class="footer-love">I love youhh Chick 🐥</div>
+  <div>between the love · stay, if your heart allows.</div>
+  <div style="margin-top:10px">an archive, not a timeline.</div>
+  <div style="margin-top:18px">© 2026 Bhavishya Wasnikar · All Rights Reserved</div>
+
+  <!-- Subtle corner note -->
+  <span class="corner-note">“ Believe me Guys i hate here “</span>
 </footer>
 
-<!-- Persistent Reader Popup with Sticky Top Bar -->
+<!-- Reader Popup -->
 <div class="reader" id="reader">
   <div class="reader-bar">
     <div class="reader-code" id="readerCode">DESIRE / 3020</div>
@@ -298,11 +311,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 </div>
 
 <script>
-/* ======================================================================
-   POSTING ARCHIVE: ENTRIES LIVE HERE
-   ====================================================================== */
 const CONTENT_ARCHIVE = {
-  // 1. CHICKS ENTRIES
   chicks: [
     {
       code: "FSJAD-K-0307 · ENTRY / 01",
@@ -421,7 +430,7 @@ Maybe to you, it was just a sentence.
 Maybe you needed space.
 Maybe you were angry.
 Maybe you didn’t mean it the way I heard it.
-But I heard it as—
+But I heard it as
 “I don’t want you here anymore.”
 
 And suddenly I was alone with everything I had been trying not to feel.
@@ -451,11 +460,11 @@ I remembered exactly why I was once so afraid of needing anyone.
 
 ---
 
-The worst part is that even after everything—
+The worst part is that even after everything
 after the anger,
 after the frustration,
 after everything you said,
-after everything I wanted to say—
+after everything I wanted to say
 when the anger finally disappeared…
 
 I still wanted you.
@@ -595,7 +604,7 @@ For every moment my love for this bond became something that hurt you instead of
 I’m sorry I made the person who felt like home feel like she needed to leave.
 And if the spark really is gone…
 then I suppose I have to accept that.
-But God, I hope you know—
+But God, I hope you know
 I didn’t stop seeing it.
 
 I was still looking for it.
@@ -613,12 +622,12 @@ but some foolish part of me is still waiting for you to say,
 And until that part of me finally learns otherwise,
 I’ll sit here quietly,
 with everything I never managed to say,
-and love you from the only distance I have left—
+and love you from the only distance I have left
 
 silence.
 
 Maybe some people don’t leave your life all at once.
-Maybe they leave slowly—
+Maybe they leave slowly
 first from your conversations,
 then from your mornings,
 then from your nights,
@@ -683,13 +692,13 @@ I love you 3000
 I don’t know how else to say it.
 I’ve tried putting it into words before, but everything sounds so small compared to what I actually feel.
 Because how do I explain that you became the person I wanted to tell everything to?
-Something happened in my day—
+Something happened in my day
 I wanted to tell you.
-I saw something funny—
+I saw something funny
 I wanted to send it to you.
-Something hurt—
+Something hurt
 I wanted you.
-Something made me happy—
+Something made me happy
 you were the person I wanted to share it with.
 Somewhere along the way, without even realizing it,
 
@@ -962,7 +971,7 @@ But it was real.
 For a little while,
 I was loved by you.
 And honestly?
-Getting to meet you, getting to know you, getting to have you in my life at all
+Getting to meet you, getting to know you, getting to have you in my life at all—
 
 that might still be one of the most beautiful things that ever happened to me.
 
@@ -998,7 +1007,7 @@ And strangely, I don’t curse my luck for it.
 I don’t want to.
 Because whatever happened between us,
 I never wanted your life to become smaller just because I wasn’t in it.
-I only wish I could know one thing
+I only wish I could know one thing—
 
 that somewhere, somehow, you’re still smiling.
 
@@ -1021,7 +1030,7 @@ Remember that there was once someone
 who knew your little details,
 who waited for your messages,
 who could find an entire day’s happiness in one conversation with you.
-Remember me as I was
+Remember me as I was—
 
 someone who loved you without knowing where that love would eventually lead.
 
@@ -1074,7 +1083,6 @@ that I got to know you.`,
     }
   ],
 
-  // 2. WHISPERS ENTRIES
   whispers: [
     {
       code: "3020 / V-04",
@@ -1088,7 +1096,6 @@ that I got to know you.`,
     }
   ],
 
-  // 3. GLIMPSES OF ELSEWHERE
   glimpses: [
     {
       code: "GLIMPSE / 01 · RANDOM CODE #3020-GL",
@@ -1098,7 +1105,6 @@ that I got to know you.`,
   ]
 };
 
-// Render Section: Chicks
 function renderChicks() {
   const container = document.getElementById('chicksContainer');
   let html = CONTENT_ARCHIVE.chicks.map((entry, index) => `
@@ -1124,7 +1130,6 @@ function renderChicks() {
   container.innerHTML = html;
 }
 
-// Render Section: Whispers
 function renderWhispers() {
   const container = document.getElementById('whispersContainer');
   container.innerHTML = CONTENT_ARCHIVE.whispers.map(w => `
@@ -1137,7 +1142,6 @@ function renderWhispers() {
   `).join('');
 }
 
-// Render Section: Glimpses of Elsewhere
 function renderGlimpses() {
   const container = document.getElementById('glimpsesContainer');
   container.innerHTML = CONTENT_ARCHIVE.glimpses.map(g => `
@@ -1149,7 +1153,6 @@ function renderGlimpses() {
   `).join('');
 }
 
-// Open Reader modal
 function openReaderByIndex(index){
   const entry = CONTENT_ARCHIVE.chicks[index];
   if(!entry) return;
@@ -1172,7 +1175,6 @@ function closeReader(){
   document.body.style.overflow = '';
 }
 
-// Formspree live email submission
 const feelForm = document.getElementById('feelForm');
 feelForm.addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -1200,7 +1202,6 @@ feelForm.addEventListener('submit', async function(e) {
   }
 });
 
-// Secret Room comment board
 const secretForm = document.getElementById('secretForm');
 const commentsStream = document.getElementById('commentsStream');
 
@@ -1249,7 +1250,6 @@ secretForm.onsubmit = function(e) {
   setTimeout(() => document.getElementById('secretStatus').textContent = '', 4000);
 };
 
-// Initial Page Render
 renderChicks();
 renderWhispers();
 renderGlimpses();
