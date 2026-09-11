@@ -109,26 +109,33 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 .form,.secretbox{background:var(--card);border:1px solid var(--line);padding:30px}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .field{margin-bottom:18px}
-.field label{display:block;font:9px 'DM Mono';letter-spacing:.12em;color:var(--muted)}
+.field label{display:block;font:9px 'DM Mono';letter-spacing:.12em;color:#5a515e;font-weight:500}
 .field input,.field textarea{
   width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;
-  padding:10px 2px;outline:0;font:16px 'Playfair Display';
+  padding:10px 2px;outline:0;font:16px 'Playfair Display';color:#242027;
+}
+.field input::placeholder,.field textarea::placeholder{
+  color:#706675;opacity:.85;font-style:italic;
+}
+.field input:focus,.field textarea:focus{
+  border-bottom-color:#242027;
 }
 .field textarea{min-height:100px;resize:vertical}
+
 .button{
-  background:transparent;border:1px solid var(--ink);padding:12px 18px;
-  font:9px 'DM Mono';letter-spacing:.12em;cursor:pointer;transition:.2s;
+  background:transparent;border:1px solid var(--ink);color:var(--ink);padding:12px 20px;
+  font:9px 'DM Mono';letter-spacing:.14em;cursor:pointer;transition:.2s;
 }
 .button:hover{
   background:var(--ink);color:var(--paper);
 }
 .button-primary{
-  background:var(--ink);color:var(--paper);border:1px solid var(--ink);
-  padding:13px 22px;font:9px 'DM Mono';letter-spacing:.14em;cursor:pointer;
-  transition:.2s;
+  background:#26212b;color:#f3eee8;border:1px solid #26212b;
+  padding:13px 22px;font:9px 'DM Mono';letter-spacing:.15em;cursor:pointer;
+  transition:.2s;box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
 .button-primary:hover{
-  background:#3b3542;border-color:#3b3542;
+  background:#3d3644;border-color:#3d3644;color:#fff;
 }
 .status{min-height:18px;margin-top:12px;font:12px 'Playfair Display';font-style:italic;color:var(--muted)}
 
@@ -148,7 +155,7 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
   display:flex;justify-content:space-between;font:9px 'DM Mono';color:var(--muted);letter-spacing:.1em;margin-bottom:8px;
 }
 .comment-card .alias{font-weight:600;color:var(--ink)}
-.comment-card p{font:16px 'Playfair Display';line-height:1.7;margin:0;color:#3e3740;white-space:pre-wrap}
+.comment-card p{font:16px 'Playfair Display';line-height:1.7;margin:0;color:#2c2730;white-space:pre-wrap}
 
 /* Footer Section */
 footer{
