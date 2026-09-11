@@ -154,7 +154,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   position:absolute;bottom:16px;right:20px;font:9px 'DM Mono';color:#a197a1;letter-spacing:.1em;opacity:.7;
 }
 
-/* Minimalist Floating Audio Bar */
+/* Floating Audio Player */
 .audio-bar{
   position:fixed;bottom:20px;left:24px;z-index:90;
   display:flex;align-items:center;gap:12px;
@@ -184,11 +184,6 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 @keyframes soundWave{
   0%{height:3px}
   100%{height:12px}
-}
-
-/* Hidden YouTube iframe container */
-#ytPlayerContainer{
-  position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;
 }
 
 /* Sticky Reader Popup */
@@ -347,18 +342,16 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   <span class="corner-note">“ Believe me Guys i hate her “</span>
 </footer>
 
-<!-- Floating Minimalist Audio Player -->
+<!-- Native Audio Player (0 Ads, Direct MP3 Playback) -->
 <div class="audio-bar" id="audioBar">
   <div class="audio-wave" id="audioWave">
     <span></span><span></span><span></span>
   </div>
-  <div class="audio-track-info" id="audioTrackInfo">AAYAT · ARIJIT SINGH</div>
+  <div class="audio-track-info" id="audioTrackInfo">PLAYLIST / READY</div>
   <button class="audio-btn" id="audioToggleBtn" onclick="toggleAudio()">PLAY ▶</button>
   <button class="audio-btn" onclick="nextTrack()">NEXT ⏭</button>
 </div>
-
-<!-- Invisible YouTube Player Embed -->
-<div id="ytPlayerContainer"><div id="ytPlayer"></div></div>
+<audio id="nativeAudio" preload="none"></audio>
 
 <!-- Reader Popup -->
 <div class="reader" id="reader">
@@ -371,105 +364,64 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   </div>
 </div>
 
-<!-- YouTube IFrame API -->
-<script src="https://www.youtube.com/iframe_api"></script>
-
 <script>
 /* ======================================================================
-   YOUTUBE AUDIO SETUP
-   Plays "Aayat" and automatically cues consecutive songs.
-   If you obtain a Public/Unlisted user playlist (PL...), paste it in 'customPlaylistId'.
+   AD-FREE PLAYLIST: Add your uploaded mp3 filenames here
    ====================================================================== */
-const customPlaylistId = ""; // If you have a PL... link, place it between the quotes
-
-const baseTrackList = [
-  { title: "Aayat · Arijit Singh", videoId: "DDYSI_GaNOU" }
+const PLAYLIST = [
+  {
+    title: "Aayat · Arijit Singh",
+    file: "Aayat.mp3"
+  },
+  {
+    title: "Track 02",
+    file: "track2.mp3"
+  }
 ];
 
-let player;
-let isPlayerReady = false;
 let currentTrackIndex = 0;
+const audio = document.getElementById('nativeAudio');
 const audioToggleBtn = document.getElementById('audioToggleBtn');
 const audioTrackInfo = document.getElementById('audioTrackInfo');
 const audioWave = document.getElementById('audioWave');
 
-function onYouTubeIframeAPIReady() {
-  const config = {
-    height: '1',
-    width: '1',
-    playerVars: {
-      'autoplay': 0,
-      'controls': 0,
-      'disablekb': 1,
-      'fs': 0,
-      'rel': 0,
-      'origin': window.location.origin
-    },
-    events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
-    }
-  };
-
-  if (customPlaylistId) {
-    config.playerVars.listType = 'playlist';
-    config.playerVars.list = customPlaylistId;
-  } else {
-    config.videoId = baseTrackList[0].videoId;
-  }
-
-  player = new YT.Player('ytPlayer', config);
-}
-
-function onPlayerReady(event) {
-  isPlayerReady = true;
-  updateTrackDisplay();
-}
-
-function updateTrackDisplay() {
-  if (player && typeof player.getVideoData === 'function') {
-    const data = player.getVideoData();
-    if (data && data.title) {
-      audioTrackInfo.textContent = data.title.toUpperCase();
-      return;
-    }
-  }
-  audioTrackInfo.textContent = baseTrackList[currentTrackIndex].title.toUpperCase();
-}
-
-function onPlayerStateChange(event) {
-  if (event.data === YT.PlayerState.PLAYING) {
-    audioToggleBtn.textContent = "PAUSE ❚❚";
-    audioWave.classList.add('playing');
-    updateTrackDisplay();
-  } else if (event.data === YT.PlayerState.PAUSED) {
-    audioToggleBtn.textContent = "PLAY ▶";
-    audioWave.classList.remove('playing');
-  } else if (event.data === YT.PlayerState.ENDED) {
-    nextTrack();
-  }
+function loadTrack(index) {
+  if (!PLAYLIST.length) return;
+  audio.src = PLAYLIST[index].file;
+  audioTrackInfo.textContent = PLAYLIST[index].title.toUpperCase();
 }
 
 function toggleAudio() {
-  if (!isPlayerReady) return;
-  const state = player.getPlayerState();
-  if (state === YT.PlayerState.PLAYING) {
-    player.pauseVideo();
+  if (!PLAYLIST.length) return;
+  if (!audio.src || audio.src === window.location.href) {
+    loadTrack(currentTrackIndex);
+  }
+  if (audio.paused) {
+    audio.play().then(() => {
+      audioToggleBtn.textContent = "PAUSE ❚❚";
+      audioWave.classList.add('playing');
+    }).catch(err => {
+      audioToggleBtn.textContent = "PLAY ▶";
+    });
   } else {
-    player.playVideo();
+    audio.pause();
+    audioToggleBtn.textContent = "PLAY ▶";
+    audioWave.classList.remove('playing');
   }
 }
 
 function nextTrack() {
-  if (!isPlayerReady) return;
-  if (customPlaylistId && typeof player.nextVideo === 'function') {
-    player.nextVideo();
-  } else {
-    currentTrackIndex = (currentTrackIndex + 1) % baseTrackList.length;
-    player.loadVideoById(baseTrackList[currentTrackIndex].videoId);
-  }
-  setTimeout(updateTrackDisplay, 1000);
+  if (!PLAYLIST.length) return;
+  currentTrackIndex = (currentTrackIndex + 1) % PLAYLIST.length;
+  loadTrack(currentTrackIndex);
+  audio.play().then(() => {
+    audioToggleBtn.textContent = "PAUSE ❚❚";
+    audioWave.classList.add('playing');
+  }).catch(() => {});
 }
+
+// Automatically transition to next track when one ends
+audio.addEventListener('ended', nextTrack);
 
 const CONTENT_ARCHIVE = {
   // 1. CHICKS ENTRIES
