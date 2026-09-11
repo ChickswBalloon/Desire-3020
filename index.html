@@ -117,7 +117,18 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 .field textarea{min-height:100px;resize:vertical}
 .button{
   background:transparent;border:1px solid var(--ink);padding:12px 18px;
-  font:9px 'DM Mono';letter-spacing:.12em;cursor:pointer;
+  font:9px 'DM Mono';letter-spacing:.12em;cursor:pointer;transition:.2s;
+}
+.button:hover{
+  background:var(--ink);color:var(--paper);
+}
+.button-primary{
+  background:var(--ink);color:var(--paper);border:1px solid var(--ink);
+  padding:13px 22px;font:9px 'DM Mono';letter-spacing:.14em;cursor:pointer;
+  transition:.2s;
+}
+.button-primary:hover{
+  background:#3b3542;border-color:#3b3542;
 }
 .status{min-height:18px;margin-top:12px;font:12px 'Playfair Display';font-style:italic;color:var(--muted)}
 
@@ -179,10 +190,6 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 .reader-part h3{font:500 43px 'Cormorant Garamond';margin:0 0 12px}
 .reader-part h4{font:italic 400 20px 'Playfair Display';margin:0 0 28px;color:#d8d0d0}
 .reader-part p{font:19px 'Playfair Display';line-height:2;color:#eee8e4;white-space:pre-line}
-.quote{
-  margin:30px 0;padding-left:22px;border-left:1px solid #8e828e;
-  font:italic 24px 'Cormorant Garamond';line-height:1.6;color:#d8d0d0;
-}
 
 @media(max-width:700px){
   .nav{gap:9px}.nav a{font-size:7px}
@@ -281,14 +288,14 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
       <div class="row">
         <div class="field">
           <label>CHOOSE AN ALIAS / NAME (OPTIONAL)</label>
-          <input id="secretAlias" maxlength="30" placeholder="Anonymous Chick">
+          <input id="secretAlias" maxlength="30" placeholder="Anonymous">
         </div>
       </div>
       <div class="field">
         <label>YOUR SECRET OR COMMENT</label>
         <textarea id="secretText" required maxlength="1000" placeholder="Leave your mark on this wall..."></textarea>
       </div>
-      <button class="button" type="submit">POST TO THE ROOM</button>
+      <button class="button-primary" type="submit">POST TO THE ROOM</button>
       <div class="status" id="secretStatus"></div>
     </form>
 
@@ -630,8 +637,7 @@ then from your nights,
 and finally from the little places inside you where you had quietly made a home for them.
 And perhaps the most heartbreaking thing is realizing that while they were leaving…
 
-you were still making room for them to stay.`,
-      quote: "Perhaps the most heartbreaking thing is realizing that while they were leaving… you were still making room for them to stay."
+you were still making room for them to stay.`
     },
     {
       code: "FHBTM-K-0908 · ENTRY / 02",
@@ -925,8 +931,7 @@ Maybe you were mine.
 Maybe I was never yours.
 But for a little while…
 
-I swear, you felt like home.`,
-      quote: "Everyone has their own eyes. Everyone has their own moon. Perhaps we were looking at the same moon from different skies."
+I swear, you felt like home.`
     },
     {
       code: "BMFPH-K-0406 · ENTRY / 03",
@@ -1060,8 +1065,7 @@ you were a part of my happiness.
 And even now,
 I don’t need you to be mine
 to still be grateful
-that I got to know you.`,
-      quote: "Meri hisse ki tu muskuraya kar. 🩷 I don't need you to be mine to still be grateful that I got to know you."
+that I got to know you.`
     },
     {
       code: "MTMHMR-K-0505 · ENTRY / 04",
@@ -1196,12 +1200,11 @@ And I don’t know if I’ll ever forgive myself for that.
 
 Because all I ever wanted was to love you.
 
-I just didn’t know how to love you without being afraid of losing you.`,
-      quote: "Because all I ever wanted was to love you. I just didn’t know how to love you without being afraid of losing you."
+I just didn’t know how to love you without being afraid of losing you.`
     },
     {
       code: "MPSMF-K-0709 · ENTRY / 05",
-      title: "Uska hona hi achha lagta tha.",
+      title: "Her Orbit",
       preview: "I know you’re happy now. Maybe with your friends. Maybe with someone you love. Maybe you’re living a life where I don’t exist anymore...",
       subheading: "Uska hona hi achha lagta tha.",
       fullText: `I know you’re happy now.
@@ -1320,12 +1323,11 @@ I still miss you.
 
 More than I know how to say.
 
-I miss you so much.`,
-      quote: "Before your smile, before your laugh, before everything else—I just loved the feeling of you being there. Uska hona hi achha lagta tha."
+I miss you so much.`
     },
     {
       code: "HKHUA-L-0810 · ENTRY / 06",
-      title: "mehek uske gaali ki",
+      title: "Smell Of her hair",
       preview: "Today I saw a dream about her. We were standing sideways, hugging each other. My hand was around her right waist...",
       subheading: "mehek uske gaali ki",
       fullText: `Today I saw a dream about her.
@@ -1373,8 +1375,7 @@ But she was there.
 She came to me.
 And she looked so, so pretty.
 
-Maybe that’s why I don’t mind these unexpected little moments. Even after all this time, somehow, a few minutes with her can still make my entire day feel different.`,
-      quote: "Even after all this time, somehow, a few minutes with her can still make my entire day feel different."
+Maybe that’s why I don’t mind these unexpected little moments. Even after all this time, somehow, a few minutes with her can still make my entire day feel different.`
     }
   ],
 
@@ -1393,8 +1394,7 @@ and even when silence took over:
 it was never about keeping score.
 
 My heart chose you,
-and that choice never changed.`,
-      quote: "Your mistakes never outweighed my love."
+and that choice never changed.`
     }
   ],
 
@@ -1489,7 +1489,6 @@ function openReader(section, index){
       <h3>${entry.title}</h3>
       ${entry.subheading ? `<h4>${entry.subheading}</h4>` : ''}
       <p>${entry.fullText}</p>
-      ${entry.quote ? `<div class="quote">“${entry.quote}”</div>` : ''}
     </article>
   `;
   document.getElementById('reader').classList.add('opened');
