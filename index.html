@@ -154,38 +154,6 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   position:absolute;bottom:16px;right:20px;font:9px 'DM Mono';color:#a197a1;letter-spacing:.1em;opacity:.7;
 }
 
-/* Floating Audio Player */
-.audio-bar{
-  position:fixed;bottom:20px;left:24px;z-index:90;
-  display:flex;align-items:center;gap:12px;
-  background:rgba(33,29,38,.88);color:#eee8e4;
-  backdrop-filter:blur(8px);padding:8px 14px;
-  border:1px solid rgba(255,255,255,.1);border-radius:30px;
-  font:9px 'DM Mono';letter-spacing:.12em;
-  box-shadow:0 8px 24px rgba(0,0,0,.2);
-}
-.audio-track-info{
-  max-width:180px;white-space:nowrap;overflow:hidden;
-  text-overflow:ellipsis;color:#d8d0d0;
-}
-.audio-btn{
-  background:none;border:0;color:inherit;font:inherit;
-  cursor:pointer;padding:2px 4px;display:flex;align-items:center;
-  transition:.2s;opacity:.8;
-}
-.audio-btn:hover{opacity:1;transform:scale(1.05)}
-.audio-wave{display:flex;align-items:center;gap:2px;height:12px}
-.audio-wave span{
-  width:2px;height:4px;background:#eee8e4;border-radius:1px;transition:height .2s ease;
-}
-.audio-wave.playing span:nth-child(1){animation:soundWave .8s ease infinite alternate}
-.audio-wave.playing span:nth-child(2){animation:soundWave .6s ease infinite alternate .2s}
-.audio-wave.playing span:nth-child(3){animation:soundWave .9s ease infinite alternate .4s}
-@keyframes soundWave{
-  0%{height:3px}
-  100%{height:12px}
-}
-
 /* Sticky Reader Popup */
 .reader{
   display:none;position:fixed;inset:0;z-index:100;
@@ -228,8 +196,6 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   .reader-part h3{font-size:37px}
   .reader-part p{font-size:17px}
   .corner-note{position:static;margin-top:24px;display:block;text-align:center}
-  .audio-bar{left:16px;bottom:16px;padding:6px 12px}
-  .audio-track-info{max-width:110px}
 }
 </style>
 </head>
@@ -342,17 +308,6 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   <span class="corner-note">“ Believe me Guys i hate her “</span>
 </footer>
 
-<!-- Native Audio Player (0 Ads, Direct MP3 Playback) -->
-<div class="audio-bar" id="audioBar">
-  <div class="audio-wave" id="audioWave">
-    <span></span><span></span><span></span>
-  </div>
-  <div class="audio-track-info" id="audioTrackInfo">PLAYLIST / READY</div>
-  <button class="audio-btn" id="audioToggleBtn" onclick="toggleAudio()">PLAY ▶</button>
-  <button class="audio-btn" onclick="nextTrack()">NEXT ⏭</button>
-</div>
-<audio id="nativeAudio" preload="none"></audio>
-
 <!-- Reader Popup -->
 <div class="reader" id="reader">
   <div class="reader-bar">
@@ -365,64 +320,6 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 </div>
 
 <script>
-/* ======================================================================
-   AD-FREE PLAYLIST: Add your uploaded mp3 filenames here
-   ====================================================================== */
-const PLAYLIST = [
-  {
-    title: "Aayat · Arijit Singh",
-    file: "Aayat.mp3"
-  },
-  {
-    title: "Track 02",
-    file: "track2.mp3"
-  }
-];
-
-let currentTrackIndex = 0;
-const audio = document.getElementById('nativeAudio');
-const audioToggleBtn = document.getElementById('audioToggleBtn');
-const audioTrackInfo = document.getElementById('audioTrackInfo');
-const audioWave = document.getElementById('audioWave');
-
-function loadTrack(index) {
-  if (!PLAYLIST.length) return;
-  audio.src = PLAYLIST[index].file;
-  audioTrackInfo.textContent = PLAYLIST[index].title.toUpperCase();
-}
-
-function toggleAudio() {
-  if (!PLAYLIST.length) return;
-  if (!audio.src || audio.src === window.location.href) {
-    loadTrack(currentTrackIndex);
-  }
-  if (audio.paused) {
-    audio.play().then(() => {
-      audioToggleBtn.textContent = "PAUSE ❚❚";
-      audioWave.classList.add('playing');
-    }).catch(err => {
-      audioToggleBtn.textContent = "PLAY ▶";
-    });
-  } else {
-    audio.pause();
-    audioToggleBtn.textContent = "PLAY ▶";
-    audioWave.classList.remove('playing');
-  }
-}
-
-function nextTrack() {
-  if (!PLAYLIST.length) return;
-  currentTrackIndex = (currentTrackIndex + 1) % PLAYLIST.length;
-  loadTrack(currentTrackIndex);
-  audio.play().then(() => {
-    audioToggleBtn.textContent = "PAUSE ❚❚";
-    audioWave.classList.add('playing');
-  }).catch(() => {});
-}
-
-// Automatically transition to next track when one ends
-audio.addEventListener('ended', nextTrack);
-
 const CONTENT_ARCHIVE = {
   // 1. CHICKS ENTRIES
   chicks: [
