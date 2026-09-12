@@ -275,38 +275,13 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
       <h2>becoming.</h2>
       <span style="display:block;margin-top:6px;font-style:italic;font-family:'Playfair Display',serif;font-size:16px;color:#514952;">making myself better to deserve you</span>
     </div>
-    <span>still in development</span>
+    <div style="text-align:right;">
+      <span style="display:block;letter-spacing:.18em;font-weight:600;margin-bottom:4px;">FSNTL-M / 349</span>
+      <span>still in development</span>
+    </div>
   </div>
 
-  <div class="grid">
-    <article class="card">
-      <div class="code">FSNTL-M / 349 · NOTE / 01</div>
-      <h3>learning to be gentler.</h3>
-      <p>
-        Unlearning old defensiveness. Listening before speaking. Making room 
-        for your feelings even when my pride wants to react. Working every day 
-        to be a safe place for you, not an argument to survive.
-      </p>
-    </article>
-
-    <article class="card">
-      <div class="code">FSNTL-M / 349 · NOTE / 02</div>
-      <h3>staying through the quiet.</h3>
-      <p>
-        Not mistaking silence for distance. Remembering that mood shifts and withdrawal 
-        aren't things to fix or take personally, just moments where you need reassurance without pressure.
-      </p>
-    </article>
-
-    <article class="card">
-      <div class="code">FSNTL-M / 349 · NOTE / 03</div>
-      <h3>little things that matter.</h3>
-      <p>
-        Checking if you drank water. Never sleeping on an unanswered hurt. 
-        Remembering your comfort food, your low-energy days, and choosing you again tomorrow.
-      </p>
-    </article>
-  </div>
+  <div class="grid" id="becomingContainer"></div>
 </section>
 
 <!-- SECTION 4: FEEDBACK -->
@@ -1514,6 +1489,88 @@ and that choice never changed.`
       title: "another voice, another night.",
       text: "This is only a shell for now. The real words will replace it when you send them."
     }
+  ],
+
+  // 4. BECOMING ENTRIES
+  becoming: [
+    {
+      code: "FSNTL-M / 349 · NOTE / 01",
+      title: "unlearning.",
+      preview: "things i need to leave behind before i ask anyone to stay.",
+      subheading: "01 — unlearning",
+      fullText: `I am learning that loving someone does not give me ownership over them.
+
+I can care deeply without controlling who they speak to, where they go, or what they choose.
+
+I can be angry without becoming cruel.
+I can be hurt without making someone else responsible for fixing me.
+
+And when someone pulls away, I don’t pull them back. I listen.
+
+the part that matters.
+becoming better should not depend on whether she comes back.`
+    },
+    {
+      code: "FSNTL-M / 349 · NOTE / 02",
+      title: "learning.",
+      preview: "patience, communication, boundaries, anger — the things i’m still figuring out.",
+      subheading: "02 — learning",
+      fullText: `Ask instead of assuming.
+Listen before defending myself.
+Give space without treating it like abandonment.
+Say what I feel before resentment says it for me.
+
+Her friendships are hers.
+Her choices are hers.
+My responsibility is how I behave.`
+    },
+    {
+      code: "FSNTL-M / 349 · NOTE / 03",
+      title: "care notes.",
+      preview: "little things worth remembering when someone i love isn’t having the easiest day.",
+      subheading: "03 — care notes",
+      fullText: `Some days need advice.
+Some days need silence.
+Some days need a hug.
+
+So ask.
+
+Remember the little things she likes. Notice when she is overwhelmed. Keep promises. Protect her dignity. Keep private things private.
+
+Care should feel safe, never suffocating.`
+    },
+    {
+      code: "FSNTL-M / 349 · NOTE / 04",
+      title: "before us.",
+      preview: "questions, places and little experiences that help two people actually know each other.",
+      subheading: "04 — before us",
+      fullText: `before we call it a date.
+
+A real conversation walk — ask about the life she wants in five years.
+
+A grocery-store date — see how you make small decisions together.
+
+Try something new — cooking, pottery, a gym session or a tiny road trip.
+
+Work-mode — sit in a café and do your own thing for an hour.
+
+Meet someone important to her — friends often reveal parts of a person you don’t see alone.`
+    },
+    {
+      code: "FSNTL-M / 349 · NOTE / 05",
+      title: "changes i've made.",
+      preview: "not promises. actual changes. small ones count too.",
+      subheading: "05 — changes i've made",
+      fullText: `Less reacting. More listening.
+Less assuming. More asking.
+Less trying to win. More trying to understand.
+Less control. More trust.
+Less ego. More accountability.
+
+A promise is only the beginning.
+
+The change is what happens after nobody is watching.`
+    }
   ]
 };
 
@@ -1582,11 +1639,24 @@ function renderWhispers() {
   `).join('');
 }
 
+// Render Section: Becoming
+function renderBecoming() {
+  const container = document.getElementById('becomingContainer');
+  if(!container) return;
+  container.innerHTML = CONTENT_ARCHIVE.becoming.map((entry, index) => `
+    <article class="card">
+      <h3>${entry.title}</h3>
+      <p>${entry.preview}</p>
+      <a class="read" onclick="openReader('becoming', ${index})">read entry →</a>
+    </article>
+  `).join('');
+}
+
 // Open Reader modal
 function openReader(section, index){
   const entry = CONTENT_ARCHIVE[section][index];
   if(!entry) return;
-  document.getElementById('readerCode').textContent = entry.code;
+  document.getElementById('readerCode').textContent = entry.code || "DESIRE / 3020";
   document.getElementById('readerContent').innerHTML = `
     <article class="reader-part">
       <div class="part-label">ARCHIVE ENTRY</div>
@@ -1685,6 +1755,7 @@ secretForm.onsubmit = function(e) {
 renderChicks();
 renderGlimpses();
 renderWhispers();
+renderBecoming();
 renderComments();
 </script>
 </body>
