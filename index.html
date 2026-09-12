@@ -55,9 +55,11 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 .head h2{margin:0;font:500 clamp(38px,5vw,60px) 'Cormorant Garamond'}
 .head span{font:9px 'DM Mono';color:var(--muted)}
 
-.chick-title{display:flex;align-items:center;gap:16px}
-.chick{width:54px;height:54px;display:block;overflow:visible}
-.chick img{width:100%;height:100%;object-fit:contain;display:block}
+/* Section Title & Mono Icon Alignment */
+.section-title-wrap{display:flex;align-items:center;gap:16px}
+.section-mono{width:54px;height:54px;display:flex;align-items:center;justify-content:center;overflow:visible;flex-shrink:0}
+.section-mono img{width:100%;height:100%;object-fit:contain;display:block}
+.section-mono svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
 
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .card{
@@ -141,6 +143,7 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 
 .secret{max-width:none;background:#e8e0e5}
 .secret-inner{max-width:850px;margin:auto;text-align:center}
+.secret-head-wrap{display:flex;justify-content:center;align-items:center;gap:16px;margin-bottom:10px}
 .secret h2{font:500 53px 'Cormorant Garamond';margin:0}
 .secret p{font-size:17px;line-height:1.7}
 .secretbox{text-align:left;margin-top:30px}
@@ -240,7 +243,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   section{padding-top:75px;padding-bottom:75px}
   .dark{padding-left:7vw;padding-right:7vw}
   .head{gap:15px}.head span{display:none}
-  .chick{width:48px;height:48px}
+  .section-mono{width:46px;height:46px}
   .reader{padding:90px 7vw 60px}
   .reader-part h3{font-size:35px}
   .reader-part p{font-size:17px}
@@ -276,8 +279,10 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 <!-- SECTION 1: CHICKS -->
 <section id="chicks">
   <div class="head">
-    <div class="chick-title">
-      <span class="chick"><img src="chick-mono.png" alt="chick"></span>
+    <div class="section-title-wrap">
+      <span class="section-mono">
+        <img src="chick-mono.png" alt="chick" onerror="this.outerHTML='<svg viewBox=\'0 0 48 48\'><path d=\'M24 8c-7 0-12 5-12 12 0 6 4 10 9 11v6l5-4c6-1 10-5 10-13 0-7-5-12-12-12z\'/></svg>'">
+      </span>
       <h2>chicks.</h2>
     </div>
     <span>pieces from somewhere between then & now</span>
@@ -289,7 +294,12 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 <!-- SECTION 2: GLIMPSES -->
 <section id="glimpses" class="dark">
   <div class="head">
-    <h2>glimpses.</h2>
+    <div class="section-title-wrap">
+      <span class="section-mono" style="color:#eee8e4;">
+        <img src="glimpses-mono.png" alt="glimpses" onerror="this.outerHTML='<svg viewBox=\'0 0 48 48\'><path d=\'M27 10a14 14 0 1 0 7 26 15 15 0 0 1-7-26z\'/><circle cx=\'33\' cy=\'16\' r=\'1\' fill=\'currentColor\'/></svg>'">
+      </span>
+      <h2>glimpses.</h2>
+    </div>
     <span>strange / beautiful / unnecessary</span>
   </div>
   <div class="grid" id="glimpsesContainer"></div>
@@ -298,7 +308,12 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 <!-- SECTION 3: WHISPERS -->
 <section id="whispers" class="voice">
   <div class="head">
-    <h2>whispers.</h2>
+    <div class="section-title-wrap">
+      <span class="section-mono">
+        <img src="whispers-mono.png" alt="whispers" onerror="this.outerHTML='<svg viewBox=\'0 0 48 48\'><path d=\'M24 16v16M24 20c-5-6-13-4-15 3 4 5 11 5 15-3zm0 0c5-6 13-4 15 3-4 5-11 5-15-3z\'/><path d=\'M22 13l-4-4M26 13l4-4\'/></svg>'">
+      </span>
+      <h2>whispers.</h2>
+    </div>
     <span>unfiltered / transcribed</span>
   </div>
   <div class="voice-grid" id="whispersContainer"></div>
@@ -307,9 +322,14 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 <!-- SECTION: BECOMING -->
 <section id="becoming">
   <div class="head">
-    <div>
-      <h2>becoming.</h2>
-      <span style="display:block;margin-top:6px;font-style:italic;font-family:'Playfair Display',serif;font-size:16px;color:#514952;">making myself better to deserve you</span>
+    <div class="section-title-wrap">
+      <span class="section-mono">
+        <img src="becoming-mono.png" alt="becoming" onerror="this.outerHTML='<svg viewBox=\'0 0 48 48\'><path d=\'M12 34c8 0 14-4 18-12 0 0 4 7 10 8\'/><path d=\'M24 26c0-7 4-13 10-14-1 6-5 12-10 14z\'/><path d=\'M24 26c-5-4-8-1-9 3 4 1 8 0 9-3z\'/></svg>'">
+      </span>
+      <div>
+        <h2>becoming.</h2>
+        <span style="display:block;margin-top:6px;font-style:italic;font-family:'Playfair Display',serif;font-size:16px;color:#514952;">making myself better to deserve you</span>
+      </div>
     </div>
     <div style="text-align:right;">
       <span style="display:block;letter-spacing:.18em;font-weight:600;margin-bottom:4px;">FSNTL-M / 349</span>
@@ -340,8 +360,12 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 <!-- SECTION 5: SECRET ROOM -->
 <section id="secret" class="secret">
   <div class="secret-inner">
-    <div style="font-size:22px">⌁</div>
-    <h2>the secret room.</h2>
+    <div class="secret-head-wrap">
+      <span class="section-mono">
+        <img src="secret-mono.png" alt="secret" onerror="this.outerHTML='<svg viewBox=\'0 0 48 48\'><circle cx=\'20\' cy=\'20\' r=\'6\'/><path d=\'M24 24l13 13M33 33l3-3M37 37l3-3\'/></svg>'">
+      </span>
+      <h2>the secret room.</h2>
+    </div>
     <p>Leave a confession, an unspoken thought, or a quiet note.<br>Everyone who walks through here will be able to read it.</p>
     
     <form class="secretbox" id="secretForm">
@@ -2209,7 +2233,7 @@ function renderChicks() {
     </article>
   `).join('');
 
-  const emptyCount = Math.max(0, 4 - CONTENT_ARCHIVE.chicks.length);
+  const emptyCount = Math.max(0, 4 - (CONTENT_ARCHIVE.chicks.length % 2));
   for(let i = 0; i < emptyCount; i++){
     const num = String(CONTENT_ARCHIVE.chicks.length + i + 1).padStart(2, '0');
     html += `
@@ -2235,7 +2259,7 @@ function renderGlimpses() {
     </article>
   `).join('');
 
-  const emptyCount = Math.max(0, 4 - CONTENT_ARCHIVE.glimpses.length);
+  const emptyCount = Math.max(0, 2 - (CONTENT_ARCHIVE.glimpses.length % 2));
   for(let i = 0; i < emptyCount; i++){
     const num = String(CONTENT_ARCHIVE.glimpses.length + i + 1).padStart(2, '0');
     html += `
