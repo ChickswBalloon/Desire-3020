@@ -72,7 +72,7 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .card{
   background:var(--card);border:1px solid var(--line);padding:30px;
-  min-height:255px;transition:transform .3s, box-shadow .3s, opacity .75s, transform .75s;display:flex;flex-direction:column;
+  min-height:255px;transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .4s ease, box-shadow .3s ease;display:flex;flex-direction:column;
 }
 .card:hover{transform:translateY(-5px);box-shadow:0 14px 30px #51495212}
 .code{font:9px 'DM Mono';letter-spacing:.14em;color:var(--muted)}
@@ -106,7 +106,7 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 
 .voice{background:#eee8e4;max-width:none}
 .voice-grid{max-width:1050px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.voice-card{background:var(--card);border:1px solid var(--line);padding:32px;display:flex;flex-direction:column;transition:transform .3s, box-shadow .3s, opacity .75s, transform .75s;}
+.voice-card{background:var(--card);border:1px solid var(--line);padding:32px;display:flex;flex-direction:column;transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .4s ease, box-shadow .3s ease;}
 .voice-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px #51495210}
 .voice-card h3{font:500 35px 'Cormorant Garamond';margin:14px 0 10px}
 .voice-card p{font-size:17px;line-height:1.85;font-style:italic;color:#3f3742}
@@ -219,8 +219,9 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 
 /* Reading Progress Bar Pinned Inside Reader Bar */
 .reader-progress{
-  position:absolute;bottom:0;left:0;height:1px;width:0%;
+  position:absolute;bottom:0;left:0;height:2px;width:0%;
   background:linear-gradient(to right, rgba(213,195,170,.2), rgba(213,195,170,.9));
+  box-shadow:0 0 6px rgba(213,195,170,.4);
   transition:width .1s ease-out;
 }
 
@@ -2496,43 +2497,9 @@ The change is what happens after nobody is watching.`
     },
     {
       code: "FSNTL-M / 349 · NOTE / 06",
-      title: "the quiet discipline.",
-      preview: "rules for my own patience, judgments, and the space between us.",
-      subheading: "06 — the quiet discipline",
-      fullText: `Give her time and space.
-Try to be mature, not immature, around certain people and in certain situations.
-Before judging right or wrong, try to put yourself in their place.
-Humans can be harmful, so it's best to avoid them.
-Engage in charity without expecting anything in return.
-Give your 100% effort, regardless of the outcome.
-
-Never give up on her.
-Understand her feelings and make decisions in her favor.
-Take the time to understand her likes and dislikes.
-Not all male friends are bad.
-
-If you have anger issues, never disrespect her because of it.
-Never judge her, her friends, or her family.
-khuda na kasta, if you ever raise your hand against her, never show your face again.
-
-Support her financially and emotionally.
-Try not to go to sleep angry with her.
-Never get to sleep after a fight, until the things are sorted.
-
-Don't hesitate to ask questions.
-Communicate your feelings daily and clearly.
-Don't be afraid to express discomfort or unease about who you're with or where you're going. (calmly)
-
-Try to maintain distance between your friends' sisters or your friends' girlfriends.
-Never go to mandir / religious places until you're dating.
-Don’t buy casual gifts until and unless you are invited or included.
-Never ask why, what, where, until she tells it by herself.`
-    },
-    {
-      code: "FSNTL-M / 349 · NOTE / 07",
       title: "how to hold her.",
       preview: "when she stares at your mouth, kiss her. when she pulls away, pull her back...",
-      subheading: "07 — how to hold her",
+      subheading: "06 — how to hold her",
       fullText: `When she stares at your mouth, kiss her.
 When she pushes you cause she thinks shes stronger than you, grab her and don't let go.
 When she pulls away, pull her back.
@@ -2550,10 +2517,10 @@ Surprise her with chocolate 2-3 times a week.
 After sex, make sure she is dressed before yourself. (apne haato se).`
     },
     {
-      code: "FSNTL-M / 349 · NOTE / 08",
+      code: "FSNTL-M / 349 · NOTE / 07",
       title: "silent prayers.",
       preview: "let her always feel loved, even if she doesn't know by whom.",
-      subheading: "08 — silent prayers",
+      subheading: "07 — silent prayers",
       fullText: `Keep her safe wherever she goes.
 Don't let her feel alone.
 Give her all the happiness she deserves.
@@ -2649,6 +2616,7 @@ function renderBecoming() {
   if(!container) return;
   container.innerHTML = CONTENT_ARCHIVE.becoming.map((entry, index) => `
     <article class="card reveal-item">
+      <div class="code">${entry.code}</div>
       <h3>${entry.title}</h3>
       <p>${entry.preview}</p>
       <a class="read" onclick="openReader('becoming', ${index})">read entry →</a>
