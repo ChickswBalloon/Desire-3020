@@ -61,10 +61,18 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 .section-mono img{width:100%;height:100%;object-fit:contain;display:block}
 .section-mono svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
 
+/* Smooth Vellum Fade Reveal */
+.reveal-item{
+  opacity:0;transform:translateY(12px);transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1);
+}
+.reveal-item.visible{
+  opacity:1;transform:translateY(0);
+}
+
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .card{
   background:var(--card);border:1px solid var(--line);padding:30px;
-  min-height:255px;transition:.3s;display:flex;flex-direction:column;
+  min-height:255px;transition:transform .3s, box-shadow .3s, opacity .75s, transform .75s;display:flex;flex-direction:column;
 }
 .card:hover{transform:translateY(-5px);box-shadow:0 14px 30px #51495212}
 .code{font:9px 'DM Mono';letter-spacing:.14em;color:var(--muted)}
@@ -98,11 +106,12 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 
 .voice{background:#eee8e4;max-width:none}
 .voice-grid{max-width:1050px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.voice-card{background:var(--card);border:1px solid var(--line);padding:32px}
-.voice-card h3{font:500 35px 'Cormorant Garamond';margin:14px 0}
-.voice-card p{font-size:17px;line-height:1.85;font-style:italic}
-.wave{height:30px;display:flex;align-items:center;gap:3px}
-.wave i{width:2px;background:#777;height:var(--h);display:block;border-radius:2px}
+.voice-card{background:var(--card);border:1px solid var(--line);padding:32px;display:flex;flex-direction:column;transition:transform .3s, box-shadow .3s, opacity .75s, transform .75s;}
+.voice-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px #51495210}
+.voice-card h3{font:500 35px 'Cormorant Garamond';margin:14px 0 10px}
+.voice-card p{font-size:17px;line-height:1.85;font-style:italic;color:#3f3742}
+.wave{height:30px;display:flex;align-items:center;gap:3px;margin:12px 0 6px}
+.wave i{width:2px;background:#777;height:var(--h);display:block;border-radius:2px;opacity:.7}
 
 .feeling{max-width:850px}
 .intro{text-align:center;margin-bottom:40px}
@@ -205,6 +214,13 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 }
 .reader-nav-btn:hover:not(:disabled){color:#fff}
 .reader-nav-btn:disabled{opacity:.2;cursor:not-allowed}
+
+/* Whisper-thin Reading Progress Bar */
+.reader-progress{
+  position:fixed;top:59px;left:0;height:1px;width:0%;
+  background:linear-gradient(to right, rgba(213,195,170,.1), rgba(213,195,170,.85));
+  z-index:130;transition:width .12s cubic-bezier(.1,1,.2,1);
+}
 
 .close-btn{
   color:#eee8e4;background:none;border:1px solid rgba(255,255,255,.2);
@@ -401,6 +417,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 
 <!-- Reader Popup with Navigation & Copy Interaction -->
 <div class="reader" id="reader" onclick="handleReaderBackdrop(event)">
+  <div class="reader-progress" id="readerProgress"></div>
   <div class="reader-bar">
     <div class="reader-meta">
       <div class="reader-code" id="readerCode">DESIRE / 3020</div>
@@ -1118,7 +1135,7 @@ Remember me as I was:
 someone who loved you without knowing where that love would eventually lead.
 
 And if you don’t remember me…
-I’ll have to make peace with that too.
+I'll have to make peace with that too.
 Because I can’t ask the past to remain alive
 just because I’m still living in it sometimes.
 It’s been almost two years.
@@ -2235,7 +2252,7 @@ I wish my heart didn’t recognize her so quickly.`
     }
   ],
 
-  // 2. GLIMPSES ENTRIES
+  // 2. GLIMPSES ENTRIES (Entries 01-16)
   glimpses: [
     {
       code: "4013 / IX · ENTRY / 01",
@@ -2364,17 +2381,17 @@ That's how far i'd go for you`
     }
   ],
 
-  // 3. WHISPERS ENTRIES
+  // 3. WHISPERS ENTRIES (Staged fragments)
   whispers: [
     {
-      code: "3020 / V-04",
-      title: "your words will live here.",
-      text: "Voice-note transcriptions, unfinished thoughts, things said too honestly — whenever you're ready to send them."
+      code: "3020 / V-04 · 03:42 AM",
+      title: "a note left unsent.",
+      text: "I kept typing your name and erasing it before the cursor could remember. Some nights belong entirely to what never gets said."
     },
     {
-      code: "3020 / V-11",
-      title: "another voice, another night.",
-      text: "This is only a shell for now. The real words will replace it when you send them."
+      code: "3020 / V-11 · UNRECORDED",
+      title: "still holding the frequency.",
+      text: "Waiting until the noise calms down to put the real voice note here. For now, the tape just hums in the quiet."
     }
   ],
 
@@ -2468,7 +2485,7 @@ let currentIndex = 0;
 function renderChicks() {
   const container = document.getElementById('chicksContainer');
   let html = CONTENT_ARCHIVE.chicks.map((entry, index) => `
-    <article class="card">
+    <article class="card reveal-item">
       <div class="code">${entry.code}</div>
       <h3>${entry.title}</h3>
       <p>${entry.preview}</p>
@@ -2476,11 +2493,11 @@ function renderChicks() {
     </article>
   `).join('');
 
-  const emptyCount = Math.max(0, 4 - (CONTENT_ARCHIVE.chicks.length % 2));
+  const emptyCount = Math.max(0, 2 - (CONTENT_ARCHIVE.chicks.length % 2));
   for(let i = 0; i < emptyCount; i++){
     const num = String(CONTENT_ARCHIVE.chicks.length + i + 1).padStart(2, '0');
     html += `
-      <article class="card empty-card">
+      <article class="card empty-card reveal-item">
         <div class="entry-mark">ENTRY / ${num}</div>
         <div class="coming">reserved for a future release</div>
         <div class="tiny">still folded away</div>
@@ -2494,7 +2511,7 @@ function renderChicks() {
 function renderGlimpses() {
   const container = document.getElementById('glimpsesContainer');
   let html = CONTENT_ARCHIVE.glimpses.map((entry, index) => `
-    <article class="card dark-card">
+    <article class="card dark-card reveal-item">
       <div class="code">${entry.code}</div>
       <h3>${entry.title}</h3>
       <p>${entry.preview}</p>
@@ -2506,7 +2523,7 @@ function renderGlimpses() {
   for(let i = 0; i < emptyCount; i++){
     const num = String(CONTENT_ARCHIVE.glimpses.length + i + 1).padStart(2, '0');
     html += `
-      <article class="card dark-card empty-card">
+      <article class="card dark-card empty-card reveal-item">
         <div class="entry-mark">ENTRY / ${num}</div>
         <div class="coming">reserved for a future release</div>
         <div class="tiny">a fragment yet to arrive</div>
@@ -2520,7 +2537,7 @@ function renderGlimpses() {
 function renderWhispers() {
   const container = document.getElementById('whispersContainer');
   container.innerHTML = CONTENT_ARCHIVE.whispers.map(w => `
-    <article class="voice-card">
+    <article class="voice-card reveal-item">
       <div class="code">${w.code}</div>
       <div class="wave"><i style="--h:12px"></i><i style="--h:24px"></i><i style="--h:30px"></i><i style="--h:14px"></i><i style="--h:26px"></i><i style="--h:18px"></i><i style="--h:8px"></i><i style="--h:22px"></i><i style="--h:29px"></i><i style="--h:15px"></i><i style="--h:20px"></i><i style="--h:10px"></i></div>
       <h3>${w.title}</h3>
@@ -2534,7 +2551,7 @@ function renderBecoming() {
   const container = document.getElementById('becomingContainer');
   if(!container) return;
   container.innerHTML = CONTENT_ARCHIVE.becoming.map((entry, index) => `
-    <article class="card">
+    <article class="card reveal-item">
       <h3>${entry.title}</h3>
       <p>${entry.preview}</p>
       <a class="read" onclick="openReader('becoming', ${index})">read entry →</a>
@@ -2550,6 +2567,7 @@ function openReader(section, index){
   
   document.getElementById('reader').classList.add('opened');
   document.body.style.overflow = 'hidden';
+  updateReaderProgress();
 }
 
 function renderReaderEntry(){
@@ -2575,6 +2593,8 @@ function renderReaderEntry(){
   const sealBtn = document.getElementById('sealBtn');
   sealBtn.textContent = 'hold to keep a line ✦';
   sealBtn.classList.remove('sealed');
+  
+  updateReaderProgress();
 }
 
 function navigateEntry(direction){
@@ -2615,6 +2635,17 @@ function handleReaderBackdrop(e){
   }
 }
 
+// Reader Progress Bar Scroll Watcher
+function updateReaderProgress(){
+  const reader = document.getElementById('reader');
+  const bar = document.getElementById('readerProgress');
+  if(!reader || !bar) return;
+  const total = reader.scrollHeight - reader.clientHeight;
+  const progress = total > 0 ? (reader.scrollTop / total) * 100 : 0;
+  bar.style.width = Math.min(100, Math.max(0, progress)) + '%';
+}
+document.getElementById('reader').addEventListener('scroll', updateReaderProgress);
+
 // Arrow Key Navigation
 document.addEventListener('keydown', function(e) {
   const reader = document.getElementById('reader');
@@ -2628,6 +2659,21 @@ document.addEventListener('keydown', function(e) {
     closeReader();
   }
 });
+
+// Vellum Scroll Reveal Observer
+function initScrollReveal() {
+  const items = document.querySelectorAll('.reveal-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  items.forEach(el => observer.observe(el));
+}
 
 // Formspree live email submission
 const feelForm = document.getElementById('feelForm');
@@ -2712,6 +2758,7 @@ renderGlimpses();
 renderWhispers();
 renderBecoming();
 renderComments();
+initScrollReveal();
 </script>
 </body>
 </html>
