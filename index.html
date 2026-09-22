@@ -72,7 +72,7 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .card{
   background:var(--card);border:1px solid var(--line);padding:30px;
-  min-height:255px;transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .4s ease, box-shadow .3s ease;display:flex;flex-direction:column;
+  min-height:255px;transition:transform .3s, box-shadow .3s, opacity .75s, transform .75s;display:flex;flex-direction:column;
 }
 .card:hover{transform:translateY(-5px);box-shadow:0 14px 30px #51495212}
 .code{font:9px 'DM Mono';letter-spacing:.14em;color:var(--muted)}
@@ -106,7 +106,7 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 
 .voice{background:#eee8e4;max-width:none}
 .voice-grid{max-width:1050px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.voice-card{background:var(--card);border:1px solid var(--line);padding:32px;display:flex;flex-direction:column;transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .4s ease, box-shadow .3s ease;}
+.voice-card{background:var(--card);border:1px solid var(--line);padding:32px;display:flex;flex-direction:column;transition:transform .3s, box-shadow .3s, opacity .75s, transform .75s;}
 .voice-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px #51495210}
 .voice-card h3{font:500 35px 'Cormorant Garamond';margin:14px 0 10px}
 .voice-card p{font-size:17px;line-height:1.85;font-style:italic;color:#3f3742}
@@ -219,9 +219,8 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 
 /* Reading Progress Bar Pinned Inside Reader Bar */
 .reader-progress{
-  position:absolute;bottom:0;left:0;height:2px;width:0%;
+  position:absolute;bottom:0;left:0;height:1px;width:0%;
   background:linear-gradient(to right, rgba(213,195,170,.2), rgba(213,195,170,.9));
-  box-shadow:0 0 6px rgba(213,195,170,.4);
   transition:width .1s ease-out;
 }
 
@@ -484,7 +483,7 @@ I made mistakes.
 You made mistakes too.
 We both know that.
 It wasn’t entirely me.
-It wasn’t entirely you.
+It wasnt entirely you.
 Maybe that’s what makes this hurt even more.
 Because somewhere between two people who cared about each other, we both became careless with each other’s hearts.
 
@@ -1434,7 +1433,7 @@ after all this distance,
 
 after all this time,
 
-after all the things we became and all the things we couldn’t become…
+after all the things we became and all the things we couldnt become…
 
 I still miss you.
 
@@ -1627,7 +1626,7 @@ Maybe we’d still be laughing about stupid things.
 
 Maybe we’d still be those two people who could sit together for hours and never run out of things to say.
 
-But I couldn’t keep my heart quiet.
+But I couldnt keep my heart quiet.
 
 I kept letting my feelings spill into a friendship that was already carrying enough.
 
@@ -1864,7 +1863,7 @@ Maybe I never said it properly.
 
 Maybe I acted like it was normal.
 
-But it wasnt.
+But it wasn’t.
 
 I noticed.
 
@@ -1940,12 +1939,12 @@ I’d want to be the person who doesn’t ask,
 
 “What happened?”
 
-I’d just look at you and say—
+I’d just look at you and say
 
-**“Four…
-three…
-two…
-one…
+**“Four...
+three...
+two...
+one...
 
 I’m here.”**💟
 
@@ -2253,6 +2252,39 @@ Still hearing that voice in my head.
 And God…
 
 I wish my heart didn’t recognize her so quickly.`
+    },
+    {
+      code: "MKKDT-L-0209 · ENTRY / 11",
+      title: "Her Presence",
+      preview: "I would gladly swallow every ounce of grief this world has to offer. I would take every pain, every heartbreak, every quiet agony if, in exchange...",
+      subheading: "I will pay every penny for her sins.",
+      fullText: `I would gladly swallow every ounce of grief this world has to offer. I would take every pain, every heartbreak, every quiet agony if, in exchange, you were handed every joy this life can possibly hold. 
+
+If the universe demanded a trade, if it asked to strip away my smile just to grant you a single laugh, I would make that deal before they even finished asking. Unconditionally. Without a single thought.
+
+I would erase myself. I would willingly burn down every dream I ever dared to have, just to ensure that whatever you whisper to the sky comes true. 
+
+I pray that life gives you someone who doesn't just bring you flowers, but knows how to hold you like one sacred, delicate, and fiercely protected.
+
+And God, if You are listening... please let her win this time. She needs this. This one is personal. If a victory requires a price, take it from my ledger. Empty my share of luck, cut it entirely from my fate, if it guarantees she gets to stand at the top. Seeing her win is the only victory my heart recognizes anymore. 🎈 
+
+Just make her smile a little wider. I will carry the weight of her mistakes. I will pay every single penny for her sins. Let her walk completely free.
+
+And if someday, in some impossible miracle, the stars finally align the way I have always begged them to, and we somehow end up together... but you look at me and set a condition. 
+
+You tell me I am never allowed to touch you. For the rest of my life. Not your hand, not your hair, not even by accident. 
+
+I would agree.
+
+I would agree to that, and a thousand other impossible conditions. Bring me your absolute worst terms. Strip away everything the world thinks love is supposed to be. I don't care. No physical hunger, no lust, no worldly desire could ever compare to the sheer, desperate reverence of just wanting you near me. 
+
+I don't need to hold your body to be consumed by you. 
+
+I would starve my hands forever, gladly, just for the absolute privilege of sitting in the same room as you. Just to breathe the air you exhale. Just to look at you and know that I am allowed to stay. I would spend an entire lifetime standing two feet away from you, never crossing the line, never asking for more, just to feel the quiet warmth of your existence beside me. 
+
+I would accept any rule, bear any distance, just to be yours. 
+
+On whatever terms you will let me.`
     }
   ],
 
@@ -2497,9 +2529,43 @@ The change is what happens after nobody is watching.`
     },
     {
       code: "FSNTL-M / 349 · NOTE / 06",
+      title: "the quiet discipline.",
+      preview: "rules for my own patience, judgments, and the space between us.",
+      subheading: "06 — the quiet discipline",
+      fullText: `Give her time and space.
+Try to be mature, not immature, around certain people and in certain situations.
+Before judging right or wrong, try to put yourself in their place.
+Humans can be harmful, so it's best to avoid them.
+Engage in charity without expecting anything in return.
+Give your 100% effort, regardless of the outcome.
+
+Never give up on her.
+Understand her feelings and make decisions in her favor.
+Take the time to understand her likes and dislikes.
+Not all male friends are bad.
+
+If you have anger issues, never disrespect her because of it.
+Never judge her, her friends, or her family.
+khuda na kasta, if you ever raise your hand against her, never show your face again.
+
+Support her financially and emotionally.
+Try not to go to sleep angry with her.
+Never get to sleep after a fight, until the things are sorted.
+
+Don't hesitate to ask questions.
+Communicate your feelings daily and clearly.
+Don't be afraid to express discomfort or unease about who you're with or where you're going. (calmly)
+
+Try to maintain distance between your friends' sisters or your friends' girlfriends.
+Never go to mandir / religious places until you're dating.
+Don’t buy casual gifts until and unless you are invited or included.
+Never ask why, what, where, until she tells it by herself.`
+    },
+    {
+      code: "FSNTL-M / 349 · NOTE / 07",
       title: "how to hold her.",
       preview: "when she stares at your mouth, kiss her. when she pulls away, pull her back...",
-      subheading: "06 — how to hold her",
+      subheading: "07 — how to hold her",
       fullText: `When she stares at your mouth, kiss her.
 When she pushes you cause she thinks shes stronger than you, grab her and don't let go.
 When she pulls away, pull her back.
@@ -2517,10 +2583,10 @@ Surprise her with chocolate 2-3 times a week.
 After sex, make sure she is dressed before yourself. (apne haato se).`
     },
     {
-      code: "FSNTL-M / 349 · NOTE / 07",
+      code: "FSNTL-M / 349 · NOTE / 08",
       title: "silent prayers.",
       preview: "let her always feel loved, even if she doesn't know by whom.",
-      subheading: "07 — silent prayers",
+      subheading: "08 — silent prayers",
       fullText: `Keep her safe wherever she goes.
 Don't let her feel alone.
 Give her all the happiness she deserves.
@@ -2616,7 +2682,6 @@ function renderBecoming() {
   if(!container) return;
   container.innerHTML = CONTENT_ARCHIVE.becoming.map((entry, index) => `
     <article class="card reveal-item">
-      <div class="code">${entry.code}</div>
       <h3>${entry.title}</h3>
       <p>${entry.preview}</p>
       <a class="read" onclick="openReader('becoming', ${index})">read entry →</a>
