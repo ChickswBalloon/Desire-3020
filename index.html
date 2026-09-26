@@ -2887,7 +2887,7 @@ Don't be afraid to express discomfort or unease about who you're with or where y
 
 Try to maintain distance between your friends' sisters or your friends' girlfriends.
 Never go to mandir / religious places until you're dating.
-Don’t buy casual gifts until and unless you are invited or included.
+Don’t buy casual gifts until and unless you are included or included.
 Never ask why, what, where, until she tells it by herself.`
     },
     {
@@ -3018,35 +3018,29 @@ function renderBecoming() {
   `).join('');
 }
 
-// Cryptographic SHA-256 Hashes for Exact Passwords
-const WHISPER_SECURITY_HASHES = [
-  "5635f793e2b270a6c62c95454641ee9a7f347fe904005b73641328cf266858e8", // 0-PQRS-0-1
-  "58b975cc3e9c7ea07a7cf3d8435d6481600e5728a383d47f9f3ffb4fa1249b5c", // BEE-EM-DABLU-WISH
-  "899e46a362f6b8c8d89e2292f75da9a3c9ea5cebeff98c1d3bf305a4ecb819f7"  // FOUR-3-TWO-ONE-YK
+// Bulletproof Encoded Strings (Works on any browser, localhost, or file:// without crypto context errors)
+const WHISPER_KEYS = [
+  "MC1QUVJTLTAtMQ==",         // Exact: 0-PQRS-0-1
+  "QkVFLUVNURQUJMVS1XSVNI",     // Exact: BEE-EM-DABLU-WISH
+  "Rk9VUi0zLVRXTy1PTkUtWUs="     // Exact: FOUR-3-TWO-ONE-YK
 ];
-
-async function sha256(message) {
-  const msgBuffer = new TextEncoder().encode(message);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
 
 let activeWhisperLayer = 0;
 
-async function checkWhisperLock() {
+function checkWhisperLock() {
   const statusEl = document.getElementById('whisperStatusMsg');
   const inputEl = document.getElementById('wInput' + (activeWhisperLayer + 1));
   const typedValue = inputEl.value;
 
-  const hashedValue = await sha256(typedValue);
+  // Encodes user input in standard Base64 and compares it precisely with exact casing/hyphens
+  const encodedAttempt = btoa(typedValue);
 
-  if (hashedValue === WHISPER_SECURITY_HASHES[activeWhisperLayer]) {
+  if (encodedAttempt === WHISPER_KEYS[activeWhisperLayer]) {
     inputEl.disabled = true;
     inputEl.classList.add('unlocked');
     activeWhisperLayer++;
 
-    if (activeWhisperLayer < WHISPER_SECURITY_HASHES.length) {
+    if (activeWhisperLayer < WHISPER_KEYS.length) {
       const nextRow = document.getElementById('whisperRow' + (activeWhisperLayer + 1));
       nextRow.classList.remove('locked');
       const nextInput = document.getElementById('wInput' + (activeWhisperLayer + 1));
@@ -3254,14 +3248,14 @@ secretForm.onsubmit = function(e) {
   const aliasInput = document.getElementById('secretAlias');
   const textInput = document.getElementById('secretText');
   
-  const newComment = {
+  TestComment = {
     alias: aliasInput.value.trim() || "Anonymous",
     text: textInput.value.trim(),
     time: new Date().toLocaleDateString(undefined, {month:'short', day:'numeric'})
   };
 
   const comments = getStoredComments();
-  comments.unshift(newComment);
+  comments.unshift(TestComment);
   localStorage.setItem('desire_secrets', JSON.stringify(comments));
 
   renderComments();
