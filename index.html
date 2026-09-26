@@ -85,11 +85,36 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 .head h2{margin:0;font:500 clamp(38px,5vw,60px) 'Cormorant Garamond'}
 .head span{font:9px 'DM Mono';color:var(--muted)}
 
+/* Scroll Hint Indicator */
+.scroll-hint {
+  display: inline-block;
+  margin-top: 12px;
+  font: 8px 'DM Mono';
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  padding: 6px 14px;
+  border-radius: 30px;
+  animation: gentleSwipe 2.5s infinite ease-in-out;
+}
+.dark .scroll-hint {
+  border-color: var(--night-line);
+  color: #8f8591;
+}
+
+@keyframes gentleSwipe {
+  0%, 100% { opacity: 0.3; transform: translateX(0); }
+  50% { opacity: 0.9; transform: translateX(4px); }
+}
+
+/* Section Title & Mono Icon Alignment */
 .section-title-wrap{display:flex;align-items:center;gap:16px}
 .section-mono{width:54px;height:54px;display:flex;align-items:center;justify-content:center;overflow:visible;flex-shrink:0}
 .section-mono img{width:100%;height:100%;object-fit:contain;display:block}
 .section-mono svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
 
+/* Smooth Vellum Fade Reveal */
 .reveal-item{
   opacity:0;transform:translateY(12px);transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1);
 }
@@ -140,6 +165,7 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
   transform: translateY(-5px);
   box-shadow: 0 14px 30px #51495212;
 }
+
 .code{font:9px 'DM Mono';letter-spacing:.14em;color:var(--muted)}
 .card h3{font:500 31px 'Cormorant Garamond';margin:16px 0 10px}
 .card p{font-size:16px;line-height:1.8;color:#554e55}
@@ -171,7 +197,7 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 
 .voice{background:#eee8e4;max-width:none}
 .voice-grid{max-width:1050px;margin:auto;}
-.voice-card {
+.voice-card{
   flex: 0 0 450px;
   max-width: 85vw;
   scroll-snap-align: start;
@@ -335,7 +361,8 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   .hero h1{font-size:85px}.hero p br{display:none}
   section{padding-top:75px;padding-bottom:75px}
   .dark{padding-left:7vw;padding-right:7vw}
-  .head{gap:15px}.head span{display:none}
+  .head{gap:15px}
+  .hide-mobile{display:none !important}
   .section-mono{width:46px;height:46px}
   .reader{padding:0 7vw 60px}
   .reader-part h3{font-size:35px}
@@ -389,7 +416,10 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
       </span>
       <h2>chicks.</h2>
     </div>
-    <span>pieces from somewhere between then & now</span>
+    <div style="text-align: right;">
+      <span class="hide-mobile" style="display:block;">pieces from somewhere between then & now</span>
+      <span class="scroll-hint">scroll to unearth →</span>
+    </div>
   </div>
 
   <div class="grid" id="chicksContainer"></div>
@@ -404,7 +434,10 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
       </span>
       <h2>glimpses.</h2>
     </div>
-    <span>strange / beautiful / unnecessary</span>
+    <div style="text-align: right;">
+      <span class="hide-mobile" style="display:block;">strange / beautiful / unnecessary</span>
+      <span class="scroll-hint">scroll to unearth →</span>
+    </div>
   </div>
   <div class="grid" id="glimpsesContainer"></div>
 </section>
@@ -418,7 +451,10 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
       </span>
       <h2>whispers.</h2>
     </div>
-    <span>unfiltered / transcribed</span>
+    <div style="text-align: right;">
+      <span class="hide-mobile" style="display:block;">unfiltered / transcribed</span>
+      <span class="scroll-hint">scroll to unearth →</span>
+    </div>
   </div>
   <div class="voice-grid" id="whispersContainer"></div>
 </section>
@@ -432,12 +468,13 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
       </span>
       <div>
         <h2>becoming.</h2>
-        <span style="display:block;margin-top:6px;font-style:italic;font-family:'Playfair Display',serif;font-size:16px;color:#514952;">making myself better to deserve you</span>
+        <span class="hide-mobile" style="display:block;margin-top:6px;font-style:italic;font-family:'Playfair Display',serif;font-size:16px;color:#514952;">making myself better to deserve you</span>
       </div>
     </div>
     <div style="text-align:right;">
-      <span style="display:block;letter-spacing:.18em;font-weight:600;margin-bottom:4px;">FSNTL-M / 349</span>
-      <span>still in development</span>
+      <span class="hide-mobile" style="display:block;letter-spacing:.18em;font-weight:600;margin-bottom:4px;">FSNTL-M / 349</span>
+      <span class="hide-mobile" style="display:block;">still in development</span>
+      <span class="scroll-hint">scroll to unearth →</span>
     </div>
   </div>
 
@@ -943,7 +980,7 @@ Maybe this time someone will stay.
 Maybe this time I can give someone my whole heart and not be scared of what happens to it.
 Maybe this time I don’t have to be alone with everything.
 And perhaps that’s why today’s tears felt so different.
-It wasn’t just me crying.
+It wasnt just me crying.
 
 It felt like that little kid finally got tired of being strong.
 
@@ -2854,6 +2891,7 @@ Let her sleep peacefully every night (not to be a battle for her everyday).`
 let currentSection = null;
 let currentIndex = 0;
 
+// Render Section: Chicks
 function renderChicks() {
   const container = document.getElementById('chicksContainer');
   let html = CONTENT_ARCHIVE.chicks.map((entry, index) => `
@@ -2879,6 +2917,7 @@ function renderChicks() {
   container.innerHTML = html;
 }
 
+// Render Section: Glimpses
 function renderGlimpses() {
   const container = document.getElementById('glimpsesContainer');
   let html = CONTENT_ARCHIVE.glimpses.map((entry, index) => `
@@ -2904,6 +2943,7 @@ function renderGlimpses() {
   container.innerHTML = html;
 }
 
+// Render Section: Whispers
 function renderWhispers() {
   const container = document.getElementById('whispersContainer');
   container.innerHTML = CONTENT_ARCHIVE.whispers.map(w => `
@@ -2916,6 +2956,7 @@ function renderWhispers() {
   `).join('');
 }
 
+// Render Section: Becoming
 function renderBecoming() {
   const container = document.getElementById('becomingContainer');
   if(!container) return;
@@ -2928,6 +2969,7 @@ function renderBecoming() {
   `).join('');
 }
 
+// Open Reader modal
 function openReader(section, index){
   currentSection = section;
   currentIndex = index;
@@ -2953,9 +2995,11 @@ function renderReaderEntry(){
     </article>
   `;
 
+  // Toggle button states
   document.getElementById('prevBtn').disabled = (currentIndex === 0);
   document.getElementById('nextBtn').disabled = (currentIndex === list.length - 1);
   
+  // Reset seal button state
   const sealBtn = document.getElementById('sealBtn');
   sealBtn.textContent = 'hold to keep a line ✦';
   sealBtn.classList.remove('sealed');
@@ -3001,6 +3045,7 @@ function handleReaderBackdrop(e){
   }
 }
 
+// Reader Progress Bar Scroll Watcher
 function updateReaderProgress(){
   const reader = document.getElementById('reader');
   const bar = document.getElementById('readerProgress');
@@ -3011,6 +3056,7 @@ function updateReaderProgress(){
 }
 document.getElementById('reader').addEventListener('scroll', updateReaderProgress);
 
+// Arrow Key Navigation
 document.addEventListener('keydown', function(e) {
   const reader = document.getElementById('reader');
   if(!reader.classList.contains('opened')) return;
@@ -3024,6 +3070,7 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+// Vellum Scroll Reveal Observer
 function initScrollReveal() {
   const items = document.querySelectorAll('.reveal-item');
   const observer = new IntersectionObserver((entries) => {
@@ -3038,6 +3085,7 @@ function initScrollReveal() {
   items.forEach(el => observer.observe(el));
 }
 
+// Formspree live email submission
 const feelForm = document.getElementById('feelForm');
 feelForm.addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -3065,6 +3113,7 @@ feelForm.addEventListener('submit', async function(e) {
   }
 });
 
+// Secret Room comment board
 const secretForm = document.getElementById('secretForm');
 const commentsStream = document.getElementById('commentsStream');
 
@@ -3113,6 +3162,7 @@ secretForm.onsubmit = function(e) {
   setTimeout(() => document.getElementById('secretStatus').textContent = '', 4000);
 };
 
+// Initial Page Render
 renderChicks();
 renderGlimpses();
 renderWhispers();
