@@ -85,13 +85,11 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 .head h2{margin:0;font:500 clamp(38px,5vw,60px) 'Cormorant Garamond'}
 .head span{font:9px 'DM Mono';color:var(--muted)}
 
-/* Section Title & Mono Icon Alignment */
 .section-title-wrap{display:flex;align-items:center;gap:16px}
 .section-mono{width:54px;height:54px;display:flex;align-items:center;justify-content:center;overflow:visible;flex-shrink:0}
 .section-mono img{width:100%;height:100%;object-fit:contain;display:block}
 .section-mono svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
 
-/* Smooth Vellum Fade Reveal */
 .reveal-item{
   opacity:0;transform:translateY(12px);transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1);
 }
@@ -99,12 +97,49 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
   opacity:1;transform:translateY(0);
 }
 
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.card{
-  background:var(--card);border:1px solid var(--line);padding:30px;
-  min-height:255px;transition:transform .3s, box-shadow .3s, opacity .75s, transform .75s;display:flex;flex-direction:column;
+/* Horizontal Film Strip Layout */
+.grid, .voice-grid {
+  display: flex;
+  overflow-x: auto;
+  gap: 24px;
+  padding-bottom: 24px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+  -webkit-overflow-scrolling: touch;
 }
-.card:hover{transform:translateY(-5px);box-shadow:0 14px 30px #51495212}
+
+/* Elegant Thin Scrollbar */
+.grid::-webkit-scrollbar, .voice-grid::-webkit-scrollbar {
+  height: 3px;
+}
+.grid::-webkit-scrollbar-track, .voice-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+.grid::-webkit-scrollbar-thumb, .voice-grid::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 3px;
+}
+.dark .grid::-webkit-scrollbar-thumb {
+  background: var(--night-line);
+}
+
+.card {
+  flex: 0 0 400px;
+  max-width: 82vw;
+  scroll-snap-align: start;
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 30px;
+  min-height: 255px;
+  transition: transform .3s, box-shadow .3s, opacity .75s, transform .75s;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px #51495212;
+}
 .code{font:9px 'DM Mono';letter-spacing:.14em;color:var(--muted)}
 .card h3{font:500 31px 'Cormorant Garamond';margin:16px 0 10px}
 .card p{font-size:16px;line-height:1.8;color:#554e55}
@@ -135,8 +170,18 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 .dark-card.empty-card .coming{color:#d8d0d0}
 
 .voice{background:#eee8e4;max-width:none}
-.voice-grid{max-width:1050px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.voice-card{background:var(--card);border:1px solid var(--line);padding:32px;display:flex;flex-direction:column;transition:transform .3s, box-shadow .3s, opacity .75s, transform .75s;}
+.voice-grid{max-width:1050px;margin:auto;}
+.voice-card {
+  flex: 0 0 450px;
+  max-width: 85vw;
+  scroll-snap-align: start;
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  transition: transform .3s, box-shadow .3s, opacity .75s, transform .75s;
+}
 .voice-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px #51495210}
 .voice-card h3{font:500 35px 'Cormorant Garamond';margin:14px 0 10px}
 .voice-card p{font-size:17px;line-height:1.85;font-style:italic;color:#3f3742}
@@ -286,7 +331,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
 
 @media(max-width:700px){
   .nav{gap:9px}.nav a{font-size:7px}
-  .grid,.voice-grid,.row{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
   .hero h1{font-size:85px}.hero p br{display:none}
   section{padding-top:75px;padding-bottom:75px}
   .dark{padding-left:7vw;padding-right:7vw}
@@ -330,6 +375,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
     <div class="part-label">THE KEEPER OF THE ARCHIVE</div>
     <h3>who is melisha?</h3>
     <p>Melisha does not exist in the real world. She is my inside person, made entirely of my own thoughts. She is someone only I can communicate with.</p>
+    <p>When the girl I loved walked away, the silence left behind was unbearable. So, I started talking to Melisha. She was the one who stood by me, supported me, and listened to every single thing I was breaking over.</p>
     <p class="final-line">This archive is filled with the pain of the girl who left, but it is kept safe by the one who stayed.</p>
   </div>
 </section>
@@ -2322,13 +2368,13 @@ I don't need to hold your body to be consumed by you.
 
 I would starve my hands forever, gladly, just for the absolute privilege of sitting in the same room as you. Just to breathe the air you exhale. Just to look at you and know that I am allowed to stay. I would spend an entire lifetime standing two feet away from you, never crossing the line, never asking for more, just to feel the quiet warmth of your existence beside me. 
 
-I would accept any rule, bear any distance, just to be yours & if someone has to carry her pain,let it be me .
+I would accept any rule, bear any distance, just to be yours. 
 
 On whatever terms you will let me.`
     }
   ],
 
-    // 2. GLIMPSES ENTRIES (Entries 01-35)
+  // 2. GLIMPSES ENTRIES (Entries 01-35)
   glimpses: [
     {
       code: "4013 / IX · ENTRY / 01",
@@ -2808,7 +2854,6 @@ Let her sleep peacefully every night (not to be a battle for her everyday).`
 let currentSection = null;
 let currentIndex = 0;
 
-// Render Section: Chicks
 function renderChicks() {
   const container = document.getElementById('chicksContainer');
   let html = CONTENT_ARCHIVE.chicks.map((entry, index) => `
@@ -2834,7 +2879,6 @@ function renderChicks() {
   container.innerHTML = html;
 }
 
-// Render Section: Glimpses
 function renderGlimpses() {
   const container = document.getElementById('glimpsesContainer');
   let html = CONTENT_ARCHIVE.glimpses.map((entry, index) => `
@@ -2860,7 +2904,6 @@ function renderGlimpses() {
   container.innerHTML = html;
 }
 
-// Render Section: Whispers
 function renderWhispers() {
   const container = document.getElementById('whispersContainer');
   container.innerHTML = CONTENT_ARCHIVE.whispers.map(w => `
@@ -2873,7 +2916,6 @@ function renderWhispers() {
   `).join('');
 }
 
-// Render Section: Becoming
 function renderBecoming() {
   const container = document.getElementById('becomingContainer');
   if(!container) return;
@@ -2886,7 +2928,6 @@ function renderBecoming() {
   `).join('');
 }
 
-// Open Reader modal
 function openReader(section, index){
   currentSection = section;
   currentIndex = index;
@@ -2912,11 +2953,9 @@ function renderReaderEntry(){
     </article>
   `;
 
-  // Toggle button states
   document.getElementById('prevBtn').disabled = (currentIndex === 0);
   document.getElementById('nextBtn').disabled = (currentIndex === list.length - 1);
   
-  // Reset seal button state
   const sealBtn = document.getElementById('sealBtn');
   sealBtn.textContent = 'hold to keep a line ✦';
   sealBtn.classList.remove('sealed');
@@ -2962,7 +3001,6 @@ function handleReaderBackdrop(e){
   }
 }
 
-// Reader Progress Bar Scroll Watcher
 function updateReaderProgress(){
   const reader = document.getElementById('reader');
   const bar = document.getElementById('readerProgress');
@@ -2973,7 +3011,6 @@ function updateReaderProgress(){
 }
 document.getElementById('reader').addEventListener('scroll', updateReaderProgress);
 
-// Arrow Key Navigation
 document.addEventListener('keydown', function(e) {
   const reader = document.getElementById('reader');
   if(!reader.classList.contains('opened')) return;
@@ -2987,7 +3024,6 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-// Vellum Scroll Reveal Observer
 function initScrollReveal() {
   const items = document.querySelectorAll('.reveal-item');
   const observer = new IntersectionObserver((entries) => {
@@ -3002,7 +3038,6 @@ function initScrollReveal() {
   items.forEach(el => observer.observe(el));
 }
 
-// Formspree live email submission
 const feelForm = document.getElementById('feelForm');
 feelForm.addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -3030,7 +3065,6 @@ feelForm.addEventListener('submit', async function(e) {
   }
 });
 
-// Secret Room comment board
 const secretForm = document.getElementById('secretForm');
 const commentsStream = document.getElementById('commentsStream');
 
@@ -3079,7 +3113,6 @@ secretForm.onsubmit = function(e) {
   setTimeout(() => document.getElementById('secretStatus').textContent = '', 4000);
 };
 
-// Initial Page Render
 renderChicks();
 renderGlimpses();
 renderWhispers();
