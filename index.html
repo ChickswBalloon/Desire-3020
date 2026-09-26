@@ -214,6 +214,28 @@ section{max-width:1200px;margin:auto;padding:100px 7vw}
 .wave{height:30px;display:flex;align-items:center;gap:3px;margin:12px 0 6px}
 .wave i{width:2px;background:#777;height:var(--h);display:block;border-radius:2px;opacity:.7}
 
+/* Whispers Encrypted Lock Box */
+.whisper-lock-box {
+  max-width: 680px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px dashed #756d77;
+  padding: 44px 36px;
+  text-align: center;
+}
+.whisper-lock-box .part-label { margin-bottom: 12px; }
+.whisper-lock-box h3 { font: italic 400 30px 'Playfair Display'; margin: 0 0 14px; color: var(--ink); }
+.whisper-lock-box p { font-size: 16px; color: #514952; margin-bottom: 30px; line-height: 1.8; }
+.lock-field-row { margin-bottom: 22px; text-align: left; transition: opacity .4s; }
+.lock-field-row.locked { opacity: .25; pointer-events: none; }
+.lock-field-row label { display: block; font: 9px 'DM Mono'; letter-spacing: .15em; color: #5a515e; font-weight: 600; margin-bottom: 8px; }
+.lock-field-row input {
+  width: 100%; border: 0; border-bottom: 1px solid var(--line); background: transparent;
+  padding: 10px 4px; outline: 0; font: 16px 'DM Mono'; color: var(--ink); letter-spacing: .08em;
+}
+.lock-field-row input:focus { border-bottom-color: var(--ink); }
+.lock-field-row input.unlocked { color: #514952; border-bottom-color: #242027; font-weight: 600; }
+
 .feeling{max-width:850px}
 .intro{text-align:center;margin-bottom:40px}
 .intro h2{font:500 48px 'Cormorant Garamond';margin:0}
@@ -442,7 +464,7 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
   <div class="grid" id="glimpsesContainer"></div>
 </section>
 
-<!-- SECTION 3: WHISPERS -->
+<!-- SECTION 3: WHISPERS (LOCKED EXCLUSIVELY) -->
 <section id="whispers" class="voice">
   <div class="head">
     <div class="section-title-wrap">
@@ -456,7 +478,34 @@ footer b{display:block;font:25px 'Cormorant Garamond';color:var(--ink);margin-bo
       <span class="scroll-hint">scroll to unearth →</span>
     </div>
   </div>
-  <div class="voice-grid" id="whispersContainer"></div>
+
+  <!-- Uncrackable 3-Layer Cipher UI -->
+  <div id="whisperLockUI" class="whisper-lock-box">
+    <div class="part-label">ENCRYPTED SILENCE · 3 LAYERS</div>
+    <h3>Three Layers of Silence</h3>
+    <p>This chamber holds raw, unfiltered audio notes. It is strictly sealed from the rest of the world. Only the one who knows every key may open it.</p>
+
+    <div class="lock-field-row" id="whisperRow1">
+      <label>LAYER 1 : MY PHONE PASSWORD OR PASSCODE?</label>
+      <input type="password" id="wInput1" placeholder="enter layer 1 key...">
+    </div>
+
+    <div class="lock-field-row locked" id="whisperRow2">
+      <label>LAYER 2 : HER PHONE PASSWORD OR PASSCODE?</label>
+      <input type="password" id="wInput2" placeholder="locked..." disabled>
+    </div>
+
+    <div class="lock-field-row locked" id="whisperRow3">
+      <label>LAYER 3 : OUR PHONE PASSWORD OR PASSCODE?</label>
+      <input type="password" id="wInput3" placeholder="locked..." disabled>
+    </div>
+
+    <button class="button-primary" id="whisperSubmitBtn" style="margin-top:14px;">BREAK SILENCE</button>
+    <div class="status" id="whisperStatusMsg"></div>
+  </div>
+
+  <!-- Voice stream revealed upon full 3-layer authorization -->
+  <div class="voice-grid" id="whispersContainer" style="display:none;"></div>
 </section>
 
 <!-- SECTION: BECOMING -->
@@ -2947,7 +2996,7 @@ function renderGlimpses() {
 function renderWhispers() {
   const container = document.getElementById('whispersContainer');
   container.innerHTML = CONTENT_ARCHIVE.whispers.map(w => `
-    <article class="voice-card reveal-item">
+    <article class="voice-card reveal-item visible">
       <div class="code">${w.code}</div>
       <div class="wave"><i style="--h:12px"></i><i style="--h:24px"></i><i style="--h:30px"></i><i style="--h:14px"></i><i style="--h:26px"></i><i style="--h:18px"></i><i style="--h:8px"></i><i style="--h:22px"></i><i style="--h:29px"></i><i style="--h:15px"></i><i style="--h:20px"></i><i style="--h:10px"></i></div>
       <h3>${w.title}</h3>
@@ -2968,6 +3017,72 @@ function renderBecoming() {
     </article>
   `).join('');
 }
+
+// Cryptographic SHA-256 Hashes for Exact Passwords
+const WHISPER_SECURITY_HASHES = [
+  "5635f793e2b270a6c62c95454641ee9a7f347fe904005b73641328cf266858e8", // 0-PQRS-0-1
+  "58b975cc3e9c7ea07a7cf3d8435d6481600e5728a383d47f9f3ffb4fa1249b5c", // BEE-EM-DABLU-WISH
+  "899e46a362f6b8c8d89e2292f75da9a3c9ea5cebeff98c1d3bf305a4ecb819f7"  // FOUR-3-TWO-ONE-YK
+];
+
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+let activeWhisperLayer = 0;
+
+async function checkWhisperLock() {
+  const statusEl = document.getElementById('whisperStatusMsg');
+  const inputEl = document.getElementById('wInput' + (activeWhisperLayer + 1));
+  const typedValue = inputEl.value;
+
+  const hashedValue = await sha256(typedValue);
+
+  if (hashedValue === WHISPER_SECURITY_HASHES[activeWhisperLayer]) {
+    inputEl.disabled = true;
+    inputEl.classList.add('unlocked');
+    activeWhisperLayer++;
+
+    if (activeWhisperLayer < WHISPER_SECURITY_HASHES.length) {
+      const nextRow = document.getElementById('whisperRow' + (activeWhisperLayer + 1));
+      nextRow.classList.remove('locked');
+      const nextInput = document.getElementById('wInput' + (activeWhisperLayer + 1));
+      nextInput.disabled = false;
+      nextInput.placeholder = "enter layer " + (activeWhisperLayer + 1) + " key...";
+      nextInput.focus();
+      statusEl.style.color = "var(--ink)";
+      statusEl.textContent = "layer " + activeWhisperLayer + " verified. break the next seal.";
+    } else {
+      statusEl.style.color = "var(--ink)";
+      statusEl.textContent = "all seals broken. silence granted.";
+      const lockUI = document.getElementById('whisperLockUI');
+      const whispersBox = document.getElementById('whispersContainer');
+
+      lockUI.style.transition = "opacity 0.6s cubic-bezier(.16,1,.3,1)";
+      lockUI.style.opacity = "0";
+
+      setTimeout(() => {
+        lockUI.style.display = "none";
+        whispersBox.style.display = "flex";
+        whispersBox.style.opacity = "0";
+        setTimeout(() => whispersBox.style.opacity = "1", 60);
+      }, 600);
+    }
+  } else {
+    statusEl.style.color = "#8b3a3a";
+    statusEl.textContent = "unauthorized. the seal remains intact.";
+  }
+}
+
+document.getElementById('whisperSubmitBtn').addEventListener('click', checkWhisperLock);
+['wInput1', 'wInput2', 'wInput3'].forEach(id => {
+  document.getElementById(id).addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') checkWhisperLock();
+  });
+});
 
 // Open Reader modal
 function openReader(section, index){
@@ -2995,11 +3110,9 @@ function renderReaderEntry(){
     </article>
   `;
 
-  // Toggle button states
   document.getElementById('prevBtn').disabled = (currentIndex === 0);
   document.getElementById('nextBtn').disabled = (currentIndex === list.length - 1);
   
-  // Reset seal button state
   const sealBtn = document.getElementById('sealBtn');
   sealBtn.textContent = 'hold to keep a line ✦';
   sealBtn.classList.remove('sealed');
@@ -3045,7 +3158,6 @@ function handleReaderBackdrop(e){
   }
 }
 
-// Reader Progress Bar Scroll Watcher
 function updateReaderProgress(){
   const reader = document.getElementById('reader');
   const bar = document.getElementById('readerProgress');
@@ -3056,7 +3168,6 @@ function updateReaderProgress(){
 }
 document.getElementById('reader').addEventListener('scroll', updateReaderProgress);
 
-// Arrow Key Navigation
 document.addEventListener('keydown', function(e) {
   const reader = document.getElementById('reader');
   if(!reader.classList.contains('opened')) return;
@@ -3070,7 +3181,6 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-// Vellum Scroll Reveal Observer
 function initScrollReveal() {
   const items = document.querySelectorAll('.reveal-item');
   const observer = new IntersectionObserver((entries) => {
@@ -3085,7 +3195,6 @@ function initScrollReveal() {
   items.forEach(el => observer.observe(el));
 }
 
-// Formspree live email submission
 const feelForm = document.getElementById('feelForm');
 feelForm.addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -3113,7 +3222,6 @@ feelForm.addEventListener('submit', async function(e) {
   }
 });
 
-// Secret Room comment board
 const secretForm = document.getElementById('secretForm');
 const commentsStream = document.getElementById('commentsStream');
 
